@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador - Sistema de Control de Asistencia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .admin-title {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            color: #495057;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #7f8c8d;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(127, 140, 141, 0.1);
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(135deg, #27ae60 0%, #219653 100%);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #2980b9 0%, #2573a7 100%);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .admin-title {
+                font-size: 24px;
+            }
+        }
+
+        /* Animación de error */
+        .error-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="admin-title">Administrador</h1>
+        
+        <form id="adminForm">
+            <div class="form-group">
+                <label for="username" class="form-label">Usuario Admin:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    class="form-input" 
+                    placeholder="Ingrese su usuario"
+                    required
+                >
+                <div class="error-message" id="usernameError">Por favor ingrese su usuario</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Contraseña:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Ingrese su contraseña"
+                    required
+                >
+                <div class="error-message" id="passwordError">Por favor ingrese su contraseña</div>
+            </div>
+            
+            <div class="buttons-container">
+                <button type="button" class="btn btn-back" onclick="irAtras()">
+                    Atrás
+                </button>
+                <button type="submit" class="btn btn-login" id="loginBtn">
+                    Entrar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function irAtras() {
+            // Regresar al index principal
+            window.location.href = 'index.html';
+        }
+
+        function validarLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            const container = document.querySelector('.container');
+            
+            // Limpiar errores previos
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+            container.classList.remove('error-shake');
+            
+            let hasErrors = false;
+            
+            // Validar campos
+            if (!username) {
+                usernameError.style.display = 'block';
+                hasErrors = true;
+            }
+            
+            if (!password) {
+                passwordError.style.display = 'block';
+                hasErrors = true;
+            }
+            
+            if (hasErrors) {
+                container.classList.add('error-shake');
+                return;
+            }
+            
+            // Aquí iría la lógica de autenticación
+            // Por ahora solo simulamos el login
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.textContent = 'Validando...';
+            loginBtn.disabled = true;
+            
+            setTimeout(() => {
+                // Simulación de validación
+                if (username === 'admin' && password === 'admin123') {
+                    alert('Login exitoso! Redirigiendo al panel de administración...');
+                    // window.location.href = 'admin-panel.html';
+                } else {
+                    alert('Usuario o contraseña incorrectos');
+                    loginBtn.textContent = 'Entrar';
+                    loginBtn.disabled = false;
+                }
+            }, 1000);
+        }
+        
+        // Agregar event listener al formulario
+        document.getElementById('adminForm').addEventListener('submit', validarLogin);
+        
+        // Limpiar errores al escribir
+        document.getElementById('username').addEventListener('input', function() {
+            document.getElementById('usernameError').style.display = 'none';
+        });
+        
+        document.getElementById('password').addEventListener('input', function() {
+            document.getElementById('passwordError').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
