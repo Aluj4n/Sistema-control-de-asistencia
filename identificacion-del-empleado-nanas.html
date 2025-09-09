@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>control de asistencia - Nanas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 20px auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .volver-section {
+            margin-top: 20px;
+        }
+
+        .volver-section button {
+            background-color: #95a5a6;
+            margin-top: 10px;
+        }
+
+        .volver-section button:hover {
+            background-color: #7f8c8d;
+        }
+
+        .contact-admin-section {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .contact-admin-section a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .contact-admin-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Control de asistencia    -Nanas</h1>
+        
+        <!-- Imagen en marco redondo -->
+        <div class="logo-circle">
+            <img src="images/logo-nanas.png" alt="Logo Nanas y Amas">
+        </div>
+
+        <!-- Formulario de Identificación -->
+        <form action="tu-servidor-o-url-de-identificacion" method="POST">
+            <label for="employee-id">ID del Empleado:</label>
+            <input type="number" id="employee-id" name="employee-id" required placeholder="Ingrese su ID">
+            
+            <label for="employee-pin">Contraseña/PIN:</label>
+            <input type="password" id="employee-pin" name="employee-pin" required placeholder="Ingrese su PIN/Contraseña">
+            
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <div class="volver-section">
+            <button onclick="window.location.href='index.html'">Volver</button>
+        </div>
+
+        <div class="contact-admin-section">
+            <p><a href="mailto:admin@empresa.com">¿No está registrado? Contacte al administrador.</a></p>
+        </div>
+    </div>
+</body>
+</html>
