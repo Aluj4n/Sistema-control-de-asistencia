@@ -1,0 +1,36 @@
+<!-- pages/empleado/login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ingreso Empleado</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2 class="welcome-title">Identificación</h2>
+
+    <p class="selection-text">
+      Empresa: <span id="empresaLectura"></span>
+    </p>
+
+    <div class="container-input">
+      <input id="emp-id" class="admin-usuario" type="text" placeholder="Número de cédula / ID" />
+    </div>
+    <div class="container-input">
+      <input id="emp-pin" class="admin-contraseña" type="password" maxlength="4" placeholder="PIN (4 dígitos)" />
+    </div>
+
+    <div class="buttons-container btn-atras">
+      <a href="../../index.html">
+        <button class="empresa-btn nanas-btn">Atrás</button>
+      </a>
+      <button class="empresa-btn silsan-btn" onclick="loginEmpleado()">Ingresar</button>
+    </div>
+    <p id="msg-error" style="color:#e74c3c; margin-top:10px;"></p>
+  </div>
+
+  <script src="../../js/empleado.js"></script>
+</body>
+</html>
