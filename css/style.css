@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    background-color: white;
+    background-color: #ededed;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     padding: 30px;
@@ -39,8 +39,8 @@ body {
 }
 
 .logo-circle {
-    width: 130px;
-    height: 130px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -53,12 +53,12 @@ body {
 
 /* Borde azul para Nanas y Amas */
 .nanas-logo {
-    border: 4px solid #3498db;
+    border: 4px solid #F2528A;
 }
 
 /* Borde verde para Droguería Silsan */
 .silsan-logo {
-    border: 4px solid #2ecc71;
+    border: 4px solid #3498db;
 }
 
 
@@ -96,20 +96,20 @@ body {
 }
 
 .nanas-btn {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    background: linear-gradient(135deg, #F2528A 0%, #F2528A 100%);
 }
 
 .nanas-btn:hover {
-    background: linear-gradient(135deg, #2980b9 0%, #2573a7 100%);
+    background: linear-gradient(135deg, #F2528A 0%, #F2528A 100%);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .silsan-btn {
-    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
 }
 
 .silsan-btn:hover {
-    background: linear-gradient(135deg, #27ae60 0%, #219653 100%);
+    background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -132,6 +132,21 @@ body {
 .admin-btn:hover {
     background: linear-gradient(135deg, #95a5a6 0%, #a6b2b3 100%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.container-input{
+    padding: 6px 20px;
+}
+.admin-usuario, .admin-contraseña{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    border: none;
+    border-left: 2px solid #999;
+}
+
+.btn-atras{
+    padding-top: 20px;
 }
 
 /* Responsive */
