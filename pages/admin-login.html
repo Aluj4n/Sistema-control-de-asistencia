@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador - Sistema de Control de Asistencia</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="admin-title">Administrador</h1>
+        
+        <form id="adminForm">
+            <div class="form-group">
+                <label for="username" class="form-label">Usuario Admin:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    class="form-input" 
+                    placeholder="Ingrese su usuario"
+                    required
+                >
+                <div class="error-message" id="usernameError">Por favor ingrese su usuario</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Contraseña:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Ingrese su contraseña"
+                    required
+                >
+                <div class="error-message" id="passwordError">Por favor ingrese su contraseña</div>
+            </div>
+            
+            <div class="buttons-container">
+                <button type="button" class="btn btn-back" onclick="irAtras()">
+                    Atrás
+                </button>
+                <button type="submit" class="btn btn-login" id="loginBtn">
+                    Entrar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="../js/administrador.js"></script>
+</body>
+</html>
