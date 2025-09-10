@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Registro De Empleados</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="welcome-title">Registro De Empleados</h1>
+        <div class="seleccion-empresas">
+            <div class="seleccion">
+                <label class="label-seleccion"> Empresa Nanas y Amas
+                    <input type="checkbox" class="seleccion-checkbox seleccion-nanas">
+                </label>
+            </div>
+
+            <div>
+                <label class="label-seleccion"> Empresa Silsan
+                    <input type="checkbox" class="seleccion-checkbox seleccion-silsan">
+                </label>
+            </div>
+        </div>
+            <div class="datos-empleado">
+            <fieldset class="datos-caja">
+                <legend>Datos Del Empleado</legend>
+                <div class="container-input">
+                    <label class="mensaje-indicador">DNI</label>
+                    <input type="number" class="dato-dni">
+                </div>
+                <div class="container-input">
+                    <label>Nombre</label>
+                    <input type="text" class="dato-nombre">
+                </div>
+                <div class="container-input">
+                    <label>Telefono</label>
+                    <input type="number" class="dato-telefono" >
+                </div>
+                <div class="container-input">
+                    <label>Correo</label>
+                    <input type="email" placeholder="@gmail.com" class="dato-correo">
+                </div>
+                <div class="container-input">
+                    <label>Cargo</label>
+                    <textarea name="cargo" id="cargo" class="dato-cargo"></textarea>
+                </div>
+                <div class="container-input">
+                    <label>Foto De Empleado</label>
+                    <input type="file" class="dato-foto">
+                </div>
+            </fieldset>    
+
+        <div class="buttons-container btn-atras">
+            <a href="">
+            <button class="empresa-btn nanas-btn">
+                Atras
+            </button>
+            </a>
+            <button class="empresa-btn silsan-btn btn-registrar">
+                Registrar
+            </button>
+        </div>
+        
+
+
+    </div>
+</body>
+</html>

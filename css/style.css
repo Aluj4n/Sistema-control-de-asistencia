@@ -137,7 +137,7 @@ body {
 .container-input{
     padding: 6px 20px;
 }
-.admin-usuario, .admin-contraseña{
+.admin-usuario, .admin-contraseña, .dato-dni, .dato-nombre, .dato-telefono, .dato-correo, .dato-cargo, .dato-foto{
     width: 100%;
     box-sizing: border-box;
     padding: 6px 12px;
@@ -145,9 +145,43 @@ body {
     border-left: 2px solid #999;
 }
 
+.datos-caja{
+    border-radius: 5px;
+
+}
+
+.dato-cargo{
+    min-width: 100%;
+    resize: none;
+}
+
 .btn-atras{
     padding-top: 20px;
 }
+
+
+.seleccion-empresas{
+    margin-top: 20px;
+}
+
+.seleccion-checkbox{
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+}
+
+.datos-empleado{
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.datos-empleado{
+    text-align: left;
+}
+
 
 /* Responsive */
 @media (max-width: 480px) {
