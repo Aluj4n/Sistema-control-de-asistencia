@@ -32,10 +32,10 @@
     </header>
 
     <div class="card">
-      <input id="dniInput" placeholder=" Ingresar DNI">
+      <input id="dniInput" placeholder="Ingresar DNI">
       <select id="empresaSelect">
         <option value="Ana y Amas">Ana y Amas</option>
-        <option value="drogeria silsan">drogeria silsan</option>
+        <option value="Drogeria Silsan">Drogeria Silsan</option>
       </select>
       <button id="markBtn">Marcar asistencia</button>
       <div class="camera-box">
@@ -66,8 +66,10 @@
     }
 
     function getLastRecordFor(empId, empresa){
-      const recs = db.records.filter(r=>r.empId===empId && r.empresa===empresa).sort((a,b)=> new Date(b.time)-new Date(a.time))
-      return recs[0]||null
+      const recs = db.records
+        .filter(r => r.empId === empId && r.empresa === empresa)
+        .sort((a,b)=> new Date(b.time) - new Date(a.time))
+      return recs[0] || null
     }
 
     function markAttendance(){
@@ -76,8 +78,9 @@
       if(!dni) return alert('Debes ingresar un DNI')
       const emp = getEmployeeByDni(dni)
       if(!emp) return alert('DNI no registrado')
+
       const last = getLastRecordFor(emp.id, empresa)
-      const type = (!last || last.type==='Salida') ? 'Entrada' : 'Salida'
+      const type = (!last || last.type === 'Salida') ? 'Entrada' : 'Salida'
 
       // tomar foto
       const canvas = $('snapshotCanvas')
@@ -85,22 +88,22 @@
       canvas.width = video.videoWidth
       canvas.height = video.videoHeight
       const ctx = canvas.getContext('2d')
-      ctx.drawImage(video,0,0,canvas.width,canvas.height)
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
       const photoData = canvas.toDataURL('image/png')
 
-      const record = {empId:emp.id,type,time:nowISO(),photo:photoData,empresa}
+      const record = {empId: emp.id, type, time: nowISO(), photo: photoData, empresa}
       db.records.push(record)
       save()
 
-      $('message').textContent = ✅ ${emp.name} (${empresa}) marcó ${type} a las ${new Date().toLocaleTimeString()}
+      $('message').textContent = `✅ ${emp.name} (${empresa}) marcó ${type} a las ${new Date().toLocaleTimeString()}`
       const lastDiv = $('lastRecord')
-      lastDiv.style.display='block'
-      lastDiv.textContent = ${type} registrada — ${new Date(record.time).toLocaleString()}
+      lastDiv.style.display = 'block'
+      lastDiv.textContent = `${type} registrada — ${new Date(record.time).toLocaleString()}`
 
-      $('dniInput').value=''
+      $('dniInput').value = ''
       $('dniInput').focus()
 
-      setTimeout(()=>{$('message').textContent=''},4000)
+      setTimeout(()=>{$('message').textContent = ''}, 4000)
     }
 
     // Reloj en vivo
@@ -108,7 +111,7 @@
       const now = new Date()
       $('clock').textContent = now.toLocaleTimeString()
     }
-    setInterval(updateClock,1000)
+    setInterval(updateClock, 1000)
     updateClock()
 
     // Cámara
@@ -123,18 +126,18 @@
 
     // Init
     load()
-    if(db.employees.length===0){
+    if(db.employees.length === 0){
       db.employees.push(
-        {id:'E001',dni:'12345678',name:'María Pérez'},
-        {id:'E002',dni:'87654321',name:'Juan López'},
-        {id:'E003',dni:'11223344',name:'Ana Gómez'}
+        {id:'E001', dni:'12345678', name:'María Pérez'},
+        {id:'E002', dni:'87654321', name:'Juan López'},
+        {id:'E003', dni:'11223344', name:'Ana Gómez'}
       )
       save()
     }
     initCamera()
 
     $('markBtn').addEventListener('click', markAttendance)
-    $('dniInput').addEventListener('keydown', e=>{ if(e.key==='Enter') markAttendance() })
+    $('dniInput').addEventListener('keydown', e => { if(e.key === 'Enter') markAttendance() })
   </script>
 </body>
 </html>
