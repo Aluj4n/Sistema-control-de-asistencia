@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Control de Asistencia</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="welcome-title">¡Bienvenido!</h1>
+        
+        
+        <div class="empleados-section">
+            <div class="section-title">Seleccione su empresa:</div>
+            <div class="logos-container">
+                <button class="logo-button" onclick="seleccionarEmpresa('nanas')" data-empresa="nanas">
+                    <div class="logo-circle nanas-logo">
+                        <img src="images/logo-nanas.png" alt="Nanas y Amas" class="logo-image">
+                    </div>
+                   
+                </button>
+                
+                <button class="logo-button" onclick="seleccionarEmpresa('silsan')" data-empresa="silsan">
+                    <div class="logo-circle silsan-logo">
+                        <img src="images/logo-silsan.png" alt="DROGUERÍA SILSAN" class="logo-image">
+                    </div>
+                    
+                </button>
+            </div>
+        </div>
+
+      
+        <div class="admin-section">
+            <button class="admin-btn" onclick="irAdministrador()">
+                ADMINISTRADOR
+            </button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
