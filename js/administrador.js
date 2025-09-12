@@ -44,6 +44,9 @@ function validarLogin(event) {
     setTimeout(() => {
  
         if (username === 'admin' && password === 'admin123') {
+
+            localStorage.setItem('adminName', username);
+            window.location.href = 'admin-welcome.html';
             alert('Login exitoso! Redirigiendo al panel de administración...');
  
         } else {
