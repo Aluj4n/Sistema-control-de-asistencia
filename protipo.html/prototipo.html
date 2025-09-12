@@ -5,34 +5,98 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Farmacia - Control de Asistencia</title>
   <style>
-    :root{--bg:#f0f4f8;--card:#ffffff;--accent:#16a34a;--muted:#6b7280}
-    *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
-    body{margin:0;background:var(--bg);color:#111}
-    .container{max-width:700px;margin:32px auto;padding:20px}
-    header{text-align:center;margin-bottom:24px}
+    :root{
+      --card:#ffffff;
+      --accent:#16a34a;
+      --muted:#6b7280;
+      --error:#dc2626;
+    }
+    *{box-sizing:border-box;font-family:Inter,system-ui,Arial}
+    
+    body{
+      margin:0;
+      color:#111;
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* 🔹 Fondo con dos imágenes tipo wallpapers */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-image: url("../images/logo-nanas.png"), url("../images/logo-silsan.png");
+        background-position: left center, right center;
+        background-repeat: no-repeat, no-repeat;
+        background-size: 50% 100%, 50% 100%;
+        z-index: -2;
+        opacity: 0.8;
+      }
+
+    .container{max-width:700px;margin:32px auto;padding:20px;position:relative;z-index:1}
+    header{text-align:center;margin-bottom:24px;animation:fadeIn 1s}
     h1{margin:0;font-size:28px;color:#064e3b}
-    .card{background:var(--card);border-radius:16px;padding:20px;box-shadow:0 6px 18px rgba(15,23,42,0.08);margin-bottom:20px}
-    input, select{width:100%;padding:14px;border-radius:10px;border:1px solid #e5e7eb;font-size:16px;margin-bottom:14px}
-    button{background:var(--accent);color:#fff;border:0;padding:14px 20px;border-radius:12px;font-size:16px;cursor:pointer;transition:0.2s;width:100%}
-    button:hover{opacity:0.9}
-    .camera-box{border:2px solid #ccc;border-radius:12px;overflow:hidden;width:100%;max-width:400px;margin:0 auto;margin-top:16px;}
+    .card{background:var(--card);border-radius:16px;padding:20px;
+      box-shadow:0 6px 18px rgba(15,23,42,0.08);margin-bottom:20px;
+      transition:transform 0.2s}
+    .card:hover{transform:scale(1.01)}
+    input, select{
+      width:100%;padding:14px;border-radius:10px;border:1px solid #e5e7eb;
+      font-size:16px;margin-bottom:14px;transition:0.2s
+    }
+    input:focus, select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 6px rgba(22,163,74,0.5)}
+    .error{border-color:var(--error)!important}
+    button{
+      background:var(--accent);color:#fff;border:0;padding:14px 20px;
+      border-radius:12px;font-size:16px;cursor:pointer;width:100%;
+      transition:0.2s;box-shadow:0 4px 10px rgba(22,163,74,0.3)
+    }
+    button:hover{opacity:0.9;transform:scale(1.02)}
+    .camera-box{border:2px solid #ccc;border-radius:12px;overflow:hidden;width:100%;max-width:400px;margin:16px auto;}
     video{width:100%;display:block}
-    .chip{background:#dcfce7;color:#166534;padding:6px 10px;border-radius:999px;font-size:13px;margin-top:10px;text-align:center}
+    .chip{
+      background:#dcfce7;color:#166534;padding:6px 10px;border-radius:999px;
+      font-size:13px;margin-top:10px;text-align:center;animation:fadeIn 0.5s
+    }
     .muted{color:var(--muted);font-size:14px;text-align:center}
-    #message{margin-top:20px;text-align:center;font-size:18px;color:#166534;font-weight:500}
-    #clock{margin-top:8px;text-align:center;font-size:24px;color:#333;font-weight:bold}
+
+    /* 🔹 Reloj en cuadro más grande */
+    #clock{
+      display:inline-block;
+      margin-top:20px;
+      background:#d1fae5;     
+      color:#065f46;          
+      padding:20px 40px;
+      border-radius:16px;
+      font-size:48px;         
+      font-weight:bold;
+      box-shadow:0 6px 14px rgba(0,0,0,0.15);
+      animation:fadeIn 1s;
+      letter-spacing:2px;
+    }
+
+    #toast{
+      position:fixed;bottom:20px;right:20px;background:#16a34a;color:white;
+      padding:12px 18px;border-radius:10px;font-size:15px;box-shadow:0 6px 16px rgba(0,0,0,0.2);
+      opacity:0;pointer-events:none;transition:opacity 0.4s,transform 0.4s;transform:translateY(20px)
+    }
+    #toast.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+    #lastPhoto{margin-top:12px;text-align:center}
+    #lastPhoto img{width:100px;height:auto;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1> Farmacia - Control de Asistencia</h1>
+      <h1>Farmacia - Control de Asistencia</h1>
       <div id="clock"></div>
       <p class="muted">Selecciona tu empresa e ingresa tu DNI</p>
     </header>
 
     <div class="card">
-      <input id="dniInput" placeholder="Ingresar DNI">
+      <input id="dniInput" placeholder="Ingresar DNI" autofocus>
       <select id="empresaSelect">
         <option value="Ana y Amas">Ana y Amas</option>
         <option value="Drogeria Silsan">Drogeria Silsan</option>
@@ -43,101 +107,16 @@
       </div>
       <canvas id="snapshotCanvas" style="display:none"></canvas>
       <div id="lastRecord" class="chip" style="display:none"></div>
+      <div id="lastPhoto"></div>
     </div>
-
-    <div id="message"></div>
   </div>
+
+  <div id="toast"></div>
 
   <script>
     const $ = id => document.getElementById(id)
-    const nowISO = () => new Date().toISOString()
-
-    const STORAGE_KEY = 'farmacia_asistencia_v1'
-    let db = { employees: [], records: [] }
-
-    function load(){
-      const raw = localStorage.getItem(STORAGE_KEY)
-      if(raw) db = JSON.parse(raw)
-    }
-    function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(db)) }
-
-    function getEmployeeByDni(dni){
-      return db.employees.find(e => e.dni === dni)
-    }
-
-    function getLastRecordFor(empId, empresa){
-      const recs = db.records
-        .filter(r => r.empId === empId && r.empresa === empresa)
-        .sort((a,b)=> new Date(b.time) - new Date(a.time))
-      return recs[0] || null
-    }
-
-    function markAttendance(){
-      const dni = $('dniInput').value.trim()
-      const empresa = $('empresaSelect').value
-      if(!dni) return alert('Debes ingresar un DNI')
-      const emp = getEmployeeByDni(dni)
-      if(!emp) return alert('DNI no registrado')
-
-      const last = getLastRecordFor(emp.id, empresa)
-      const type = (!last || last.type === 'Salida') ? 'Entrada' : 'Salida'
-
-      // tomar foto
-      const canvas = $('snapshotCanvas')
-      const video = $('camera')
-      canvas.width = video.videoWidth
-      canvas.height = video.videoHeight
-      const ctx = canvas.getContext('2d')
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-      const photoData = canvas.toDataURL('image/png')
-
-      const record = {empId: emp.id, type, time: nowISO(), photo: photoData, empresa}
-      db.records.push(record)
-      save()
-
-      $('message').textContent = `✅ ${emp.name} (${empresa}) marcó ${type} a las ${new Date().toLocaleTimeString()}`
-      const lastDiv = $('lastRecord')
-      lastDiv.style.display = 'block'
-      lastDiv.textContent = `${type} registrada — ${new Date(record.time).toLocaleString()}`
-
-      $('dniInput').value = ''
-      $('dniInput').focus()
-
-      setTimeout(()=>{$('message').textContent = ''}, 4000)
-    }
-
-    // Reloj en vivo
-    function updateClock(){
-      const now = new Date()
-      $('clock').textContent = now.toLocaleTimeString()
-    }
-    setInterval(updateClock, 1000)
-    updateClock()
-
-    // Cámara
-    async function initCamera(){
-      try{
-        const stream = await navigator.mediaDevices.getUserMedia({video:true})
-        $('camera').srcObject = stream
-      }catch(e){
-        alert('No se pudo acceder a la cámara')
-      }
-    }
-
-    // Init
-    load()
-    if(db.employees.length === 0){
-      db.employees.push(
-        {id:'E001', dni:'12345678', name:'María Pérez'},
-        {id:'E002', dni:'87654321', name:'Juan López'},
-        {id:'E003', dni:'11223344', name:'Ana Gómez'}
-      )
-      save()
-    }
-    initCamera()
-
-    $('markBtn').addEventListener('click', markAttendance)
-    $('dniInput').addEventListener('keydown', e => { if(e.key === 'Enter') markAttendance() })
+    function updateClock(){ $('clock').textContent=new Date().toLocaleTimeString() }
+    setInterval(updateClock,1000);updateClock()
   </script>
 </body>
 </html>

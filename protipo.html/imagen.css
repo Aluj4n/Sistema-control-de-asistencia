@@ -1,0 +1,13 @@
+body {
+  margin:0;
+  color:#111;
+  position: relative;
+  min-height: 100vh;
+
+  /* Fondo con 2 wallpapers */
+  background-image: url("images/logo-nanas.png"), url("images/logo-silsan.png");
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover, cover;
+  background-attachment: fixed, fixed;
+}
