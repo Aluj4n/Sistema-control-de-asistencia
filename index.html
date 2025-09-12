@@ -10,34 +10,32 @@
     <div class="container">
         <h1 class="welcome-title">¡Bienvenido!</h1>
         
-        <div class="logos-container">
-            <div class="logo-circle nanas-logo">
-                <img src="images/logo-nanas.png" alt="Nanas y Amas" class="logo-image">
-            </div>
-            <div class="logo-circle silsan-logo">
-                <img src="images/logo-silsan.png" alt="DROGUERÍA SILSAN" class="logo-image">
-            </div>
-        </div>
         
-        <div class="selection-text">
-            <p>Seleccione su empresa:</p>
+        <div class="empleados-section">
+            <div class="section-title">Seleccione su empresa:</div>
+            <div class="logos-container">
+                <button class="logo-button" onclick="seleccionarEmpresa('nanas')" data-empresa="nanas">
+                    <div class="logo-circle nanas-logo">
+                        <img src="images/logo-nanas.png" alt="Nanas y Amas" class="logo-image">
+                    </div>
+                   
+                </button>
+                
+                <button class="logo-button" onclick="seleccionarEmpresa('silsan')" data-empresa="silsan">
+                    <div class="logo-circle silsan-logo">
+                        <img src="images/logo-silsan.png" alt="DROGUERÍA SILSAN" class="logo-image">
+                    </div>
+                    
+                </button>
+            </div>
         </div>
-        
-        <div class="buttons-container">
-            <button class="empresa-btn nanas-btn" onclick="seleccionarEmpresa('nanas')">
-                NANAS Y AMAS
-            </button>
-            <button class="empresa-btn silsan-btn" onclick="seleccionarEmpresa('silsan')">
-                DROGUERÍA SILSAN
-            </button>
-        </div>
-        <a href="/pages/admin-login.html">
-        <div class="admin-container">
+
+      
+        <div class="admin-section">
             <button class="admin-btn" onclick="irAdministrador()">
                 ADMINISTRADOR
             </button>
         </div>
-        </a>
     </div>
 
     <script src="js/script.js"></script>

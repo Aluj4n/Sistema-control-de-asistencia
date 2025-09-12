@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    background-color: #ededed;
+    background-color: white;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     padding: 30px;
@@ -27,161 +27,114 @@ body {
 .welcome-title {
     color: #2c3e50;
     font-size: 32px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     font-weight: 600;
+}
+
+/* Sección de Empleados */
+.empleados-section {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 2px solid #e9ecef;
+}
+
+.section-title {
+    color: #495057;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 500;
 }
 
 .logos-container {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 30px;
+    align-items: center;
     flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 5px;
+}
+
+.logo-button:hover {
+    transform: scale(1.05);
+}
+
+.logo-button:active {
+    transform: scale(0.98);
 }
 
 .logo-circle {
-    width: 180px;
-    height: 180px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     background-color: white;
     padding: 10px;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Borde azul para Nanas y Amas */
+/* Borde rosado coral para Nanas y Amas */
 .nanas-logo {
-    border: 4px solid #F2528A;
+    border: 4px solid #ff6b6b;
 }
 
-/* Borde verde para Droguería Silsan */
+/* Borde celeste fuerte para Droguería Silsan */
 .silsan-logo {
-    border: 4px solid #3498db;
+    border: 4px solid #1e90ff;
 }
-
 
 .logo-image {
     width: 100px;
     height: 100px;
     object-fit: contain;
+    transition: transform 0.2s ease;
 }
 
-.selection-text {
-    margin-bottom: 25px;
-    font-size: 18px;
-    color: #34495e;
+.logo-button:hover .logo-image {
+    transform: scale(1.1);
 }
 
-.buttons-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.empresa-btn {
-    padding: 15px 25px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: white;
-    min-width: 160px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.nanas-btn {
-    background: linear-gradient(135deg, #F2528A 0%, #F2528A 100%);
-}
-
-.nanas-btn:hover {
-    background: linear-gradient(135deg, #F2528A 0%, #F2528A 100%);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.silsan-btn {
-    background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
-}
-
-.silsan-btn:hover {
-    background: linear-gradient(135deg, #3498db 0%, #3498db 100%);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.admin-container {
-    margin-top: 20px;
+/* Sección de Administrador */
+.admin-section {
+    border-top: 2px solid #e9ecef;
+    padding-top: 25px;
 }
 
 .admin-btn {
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #7f8c8d 0%, #95a5a6 100%);
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #800000 0%, #a83232 100%);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
 }
 
 .admin-btn:hover {
     background: linear-gradient(135deg, #95a5a6 0%, #a6b2b3 100%);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
-.container-input{
-    padding: 6px 20px;
+.admin-btn:active {
+    transform: translateY(0);
 }
-.admin-usuario, .admin-contraseña, .dato-dni, .dato-nombre, .dato-telefono, .dato-correo, .dato-cargo, .dato-foto{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 6px 12px;
-    border: none;
-    border-left: 2px solid #999;
-}
-
-.datos-caja{
-    border-radius: 5px;
-
-}
-
-.dato-cargo{
-    min-width: 100%;
-    resize: none;
-}
-
-.btn-atras{
-    padding-top: 20px;
-}
-
-
-.seleccion-empresas{
-    margin-top: 20px;
-}
-
-.seleccion-checkbox{
-    width: 15px;
-    height: 15px;
-    border-radius: 3px;
-}
-
-.datos-empleado{
-    padding: 20px;
-    max-width: 500px;
-    margin: auto;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.datos-empleado{
-    text-align: left;
-}
-
 
 /* Responsive */
 @media (max-width: 480px) {
@@ -189,18 +142,45 @@ body {
         padding: 20px;
     }
     
+    .empleados-section {
+        padding: 20px;
+    }
+    
     .logos-container {
         flex-direction: column;
-        align-items: center;
     }
     
-    .buttons-container {
-        flex-direction: column;
-        align-items: center;
+    .logo-button:first-child {
+        border-right: none;
+        border-bottom: 2px solid #e9ecef;
     }
     
-    .empresa-btn {
-        width: 100%;
-        max-width: 250px;
+    .logo-button {
+        padding: 25px;
     }
+    
+    .logo-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .logo-image {
+        width: 75px;
+        height: 75px;
+    }
+    
+    .welcome-title {
+        font-size: 28px;
+    }
+}
+
+/* Efecto de selección/clic */
+.logo-button.clicked {
+    animation: clickEffect 0.3s ease;
+}
+
+@keyframes clickEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }

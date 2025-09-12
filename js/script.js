@@ -1,12 +1,21 @@
 function seleccionarEmpresa(empresa) {
-    // Guardar la empresa seleccionada en el almacenamiento local
-    localStorage.setItem('empresaSeleccionada', empresa);
+
+    const button = document.querySelector(`[data-empresa="${empresa}"]`);
+    button.classList.add('clicked');
     
-    // Redirigir al formulario de login de empleados
-    window.location.href = 'pages/empleado-login.html';
+    setTimeout(() => {
+        button.classList.remove('clicked');
+        
+        if (empresa === 'nanas') {
+            window.location.href = 'pages/empleado-nanaslogin.html';
+        } else if (empresa === 'silsan') {
+            window.location.href = 'pages/empleado-silsan.html';
+        }
+    }, 300);
 }
 
 function irAdministrador() {
-    // Redirigir al formulario de login de administrador
+
     window.location.href = 'pages/admin-login.html';
+
 }

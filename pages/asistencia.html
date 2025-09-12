@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Asistencia</title>
+    <link rel="stylesheet" href="../css/asistencia.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="company-info">
+                <img src="../images/logo-empresa.png" alt="Logo Empresa" class="company-logo" id="companyLogo">
+                <h1 class="company-name" id="companyName">Control de Asistencia</h1>
+            </div>
+            <button class="logout-btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+
+        <div class="employee-info">
+            <h2 id="employeeName">Nombre del Empleado</h2>
+            <p id="employeePosition">Cargo: </p>
+            <div class="datetime">
+                <span id="currentDate"></span>
+                <span id="currentTime"></span>
+            </div>
+        </div>
+
+        <div class="camera-section">
+            <h3>📷 Toma de Foto Obligatoria</h3>
+            <div class="camera-container">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas" style="display:none;"></canvas>
+            </div>
+            <div class="camera-controls">
+                <button id="captureBtn" class="btn btn-capture" onclick="capturePhoto()">Tomar Foto</button>
+                <button id="retakeBtn" class="btn btn-retake" onclick="retakePhoto()" style="display:none;">Volver a Tomar</button>
+            </div>
+        </div>
+
+        <div class="attendance-controls">
+            <div class="gps-info">
+                <span id="gpsStatus">📍 Obteniendo ubicación...</span>
+            </div>
+            
+            <div class="attendance-buttons">
+                <button id="entradaBtn" class="btn btn-entrada" onclick="marcarEntrada()" disabled>
+                    🟢 MARCAR ENTRADA
+                </button>
+                <button id="salidaBtn" class="btn btn-salida" onclick="marcarSalida()" disabled>
+                    🔴 MARCAR SALIDA
+                </button>
+            </div>
+
+            <div class="break-controls">
+                <button id="inicioBreakBtn" class="btn btn-break" onclick="marcarInicioBreak()" disabled>
+                    ⏸️ INICIO REFRIGERIO
+                </button>
+                <button id="finBreakBtn" class="btn btn-break" onclick="marcarFinBreak()" disabled>
+                    ⏯️ FIN REFRIGERIO
+                </button>
+            </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+    </div>
+
+    <script src="../js/asistencia.js"></script>
+</body>
+</html>
