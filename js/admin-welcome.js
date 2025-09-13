@@ -10,9 +10,7 @@ function cargarDatosAdministrador() {
 }
 
 function irARegistrarEmpleado() {
-    // Redirigir al formulario de registro de empleados
-    alert('Redirigiendo a registro de empleados...');
-    // window.location.href = 'admin-register.html'; // Para Formulario 6
+    window.location.href = 'panelAdmin/registrar-nuevoemp.html'; // Para Formulario 6
 }
 
 function irAPanelAdministracion() {
