@@ -66,11 +66,12 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Mantén todo tu CSS existente y solo asegúrate de que los botones se vean bien */
 .admin-options {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 20px; /* Esto asegura espacio entre botones */
 }
 
 .admin-option-btn {
@@ -90,6 +91,13 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.admin-option-btn:nth-child(3) {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+}
+
+.admin-option-btn:nth-child(3):hover {
+    background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
+}
 .admin-option-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
