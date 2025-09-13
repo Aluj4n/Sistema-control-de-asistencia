@@ -1,122 +1,217 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Farmacia - Control de Asistencia</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte de Asistencias</title>
   <style>
-    :root{
-      --card:#ffffff;
-      --accent:#16a34a;
-      --muted:#6b7280;
-      --error:#dc2626;
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #d4fc79, #96e6a1);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      font-size: 20px; /* 🔹 Texto base más grande */
     }
-    *{box-sizing:border-box;font-family:Inter,system-ui,Arial}
-    
-    body{
-      margin:0;
-      color:#111;
-      position: relative;
-      min-height: 100vh;
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 45px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+      text-align: center;
+      color: #0d9488;
+      margin-bottom: 10px;
+      font-size: 32px; /* 🔹 Más grande */
+    }
+    h4 {
+      margin: 30px 0 15px;
+      color: #1e293b;
+      font-size: 22px;
+      border-left: 5px solid #0d9488;
+      padding-left: 12px;
+    }
+    .params {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin-bottom: 30px;
+    }
+    .params label {
+      font-size: 18px; /* 🔹 Más grande */
+      font-weight: bold;
+      color: #475569;
+    }
+    .params input, 
+    .params select {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 18px; /* 🔹 Más grande */
+      transition: border-color 0.3s;
+    }
+    .params input:focus, 
+    .params select:focus {
+      outline: none;
+      border-color: #0d9488;
+    }
+    .btn {
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      color: #fff;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px; /* 🔹 Botón más grande */
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.3s;
+      margin-top: 12px;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      border-radius: 12px;
       overflow: hidden;
+      font-size: 18px; /* 🔹 Letras tabla más grandes */
     }
-
-    /* 🔹 Fondo con dos imágenes tipo wallpapers */
-      body::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-image: url("../images/logo-nanas.png"), url("../images/logo-silsan.png");
-        background-position: left center, right center;
-        background-repeat: no-repeat, no-repeat;
-        background-size: 50% 100%, 50% 100%;
-        z-index: -2;
-        opacity: 0.8;
-      }
-
-    .container{max-width:700px;margin:32px auto;padding:20px;position:relative;z-index:1}
-    header{text-align:center;margin-bottom:24px;animation:fadeIn 1s}
-    h1{margin:0;font-size:28px;color:#064e3b}
-    .card{background:var(--card);border-radius:16px;padding:20px;
-      box-shadow:0 6px 18px rgba(15,23,42,0.08);margin-bottom:20px;
-      transition:transform 0.2s}
-    .card:hover{transform:scale(1.01)}
-    input, select{
-      width:100%;padding:14px;border-radius:10px;border:1px solid #e5e7eb;
-      font-size:16px;margin-bottom:14px;transition:0.2s
+    th, td {
+      padding: 16px;
+      text-align: center;
     }
-    input:focus, select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 6px rgba(22,163,74,0.5)}
-    .error{border-color:var(--error)!important}
-    button{
-      background:var(--accent);color:#fff;border:0;padding:14px 20px;
-      border-radius:12px;font-size:16px;cursor:pointer;width:100%;
-      transition:0.2s;box-shadow:0 4px 10px rgba(22,163,74,0.3)
+    th {
+      background: #0d9488;
+      color: white;
+      font-size: 20px;
     }
-    button:hover{opacity:0.9;transform:scale(1.02)}
-    .camera-box{border:2px solid #ccc;border-radius:12px;overflow:hidden;width:100%;max-width:400px;margin:16px auto;}
-    video{width:100%;display:block}
-    .chip{
-      background:#dcfce7;color:#166534;padding:6px 10px;border-radius:999px;
-      font-size:13px;margin-top:10px;text-align:center;animation:fadeIn 0.5s
+    tr:nth-child(even) {
+      background: #f9fafb;
     }
-    .muted{color:var(--muted);font-size:14px;text-align:center}
-
-    /* 🔹 Reloj en cuadro más grande */
-    #clock{
-      display:inline-block;
-      margin-top:20px;
-      background:#d1fae5;     
-      color:#065f46;          
-      padding:20px 40px;
-      border-radius:16px;
-      font-size:48px;         
-      font-weight:bold;
-      box-shadow:0 6px 14px rgba(0,0,0,0.15);
-      animation:fadeIn 1s;
-      letter-spacing:2px;
+    tr:hover {
+      background: #ecfdf5;
     }
-
-    #toast{
-      position:fixed;bottom:20px;right:20px;background:#16a34a;color:white;
-      padding:12px 18px;border-radius:10px;font-size:15px;box-shadow:0 6px 16px rgba(0,0,0,0.2);
-      opacity:0;pointer-events:none;transition:opacity 0.4s,transform 0.4s;transform:translateY(20px)
+    .resumen {
+      margin: 30px 0;
+      padding: 22px;
+      border-left: 6px solid #0d9488;
+      background: #f0fdfa;
+      border-radius: 10px;
+      font-size: 18px;
     }
-    #toast.show{opacity:1;pointer-events:auto;transform:translateY(0)}
-    #lastPhoto{margin-top:12px;text-align:center}
-    #lastPhoto img{width:100px;height:auto;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+    .acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .acciones button {
+      flex: 1;
+      min-width: 200px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px; /* 🔹 Más grande */
+      transition: transform 0.2s, opacity 0.3s;
+      color: #fff;
+    }
+    .acciones button:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+    .pdf { background: linear-gradient(135deg, #dc2626, #ef4444); }
+    .excel { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+    .volver { background: linear-gradient(135deg, #6b7280, #9ca3af); }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>Farmacia - Control de Asistencia</h1>
-      <div id="clock"></div>
-      <p class="muted">Selecciona tu empresa e ingresa tu DNI</p>
-    </header>
+    <h2>📊 Reporte Detallado de Asistencias</h2>
+    <p style="text-align:center; font-size:20px;">Bienvenido: <b>[Nombre]</b></p>
 
-    <div class="card">
-      <input id="dniInput" placeholder="Ingresar DNI" autofocus>
-      <select id="empresaSelect">
-        <option value="Ana y Amas">Ana y Amas</option>
-        <option value="Drogeria Silsan">Drogeria Silsan</option>
-      </select>
-      <button id="markBtn">Marcar asistencia</button>
-      <div class="camera-box">
-        <video id="camera" autoplay muted playsinline></video>
+    <h4>Parámetros del Reporte</h4>
+    <div class="params">
+      <div>
+        <label>📅 Fecha Inicio:</label>
+        <input type="date">
       </div>
-      <canvas id="snapshotCanvas" style="display:none"></canvas>
-      <div id="lastRecord" class="chip" style="display:none"></div>
-      <div id="lastPhoto"></div>
+      <div>
+        <label>📅 Fecha Fin:</label>
+        <input type="date">
+      </div>
+      <div>
+        <label>🏢 Empresa:</label>
+        <select>
+          <option>Todas</option>
+          <option>Nanas</option>
+          <option>Silsan</option>
+        </select>
+      </div>
+      <div>
+        <label>👤 Empleado:</label>
+        <select>
+          <option>Todos</option>
+          <option>Juan Pérez</option>
+          <option>Ana Ruiz</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn">✨ Generar Reporte</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Empleado</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>15/09/24</td>
+          <td>Juan Pérez</td>
+          <td>08:00</td>
+          <td>17:00</td>
+        </tr>
+        <tr>
+          <td>15/09/24</td>
+          <td>Ana Ruiz</td>
+          <td>08:15</td>
+          <td>16:45</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="resumen">
+      <p><b>📌 Resumen:</b></p>
+      <p>- Total días: 22</p>
+      <p>- Horas trabajadas: 176:30</p>
+      <p>- Promedio diario: 8:01</p>
+    </div>
+
+    <div class="acciones">
+      <button onclick="window.print()">🖨 Imprimir Reporte</button>
+      <button class="pdf">⬇ Exportar PDF</button>
+      <button class="excel">⬇ Exportar Excel</button>
+      <button class="volver">⏪ Volver al Panel</button>
     </div>
   </div>
-
-  <div id="toast"></div>
-
-  <script>
-    const $ = id => document.getElementById(id)
-    function updateClock(){ $('clock').textContent=new Date().toLocaleTimeString() }
-    setInterval(updateClock,1000);updateClock()
-  </script>
 </body>
 </html>
