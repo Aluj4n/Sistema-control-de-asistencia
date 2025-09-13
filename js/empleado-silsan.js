@@ -25,10 +25,10 @@ function validarLogin(event) {
 
     setTimeout(() => {
         // Aquí normalmente verificarías con tu base de datos
-        if (numeroId === '12345' && password === 'nanas123') {
+        if (numeroId === '12345' && password === 'silsan123') {
             // GUARDAR DATOS EN LOCALSTORAGE Y REDIRIGIR
-            localStorage.setItem('empresa', 'nanas');
-            localStorage.setItem('employeeName', 'Empleado de Nanas'); // Reemplaza con datos reales
+            localStorage.setItem('empresa', 'silsan');
+            localStorage.setItem('employeeName', 'Empleado de Silsan'); // Reemplaza con datos reales
             localStorage.setItem('employeePosition', 'Cargo Ejemplo'); // Reemplaza con datos reales
             window.location.href = 'asistencia.html';
             

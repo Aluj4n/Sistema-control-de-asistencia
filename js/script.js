@@ -9,7 +9,7 @@ function seleccionarEmpresa(empresa) {
         if (empresa === 'nanas') {
             window.location.href = 'pages/empleado-nanaslogin.html';
         } else if (empresa === 'silsan') {
-            console.log('Formulario de Silsan aún no creado');
+            window.location.href = 'pages/empleado-silsan.html';
         }
     }, 300);
 }

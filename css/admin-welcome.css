@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+.header {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 25px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.admin-info {
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.admin-info h2 {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#adminName {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.logo-section {
+    padding: 30px;
+    background: #ecf0f1;
+}
+
+.system-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #bdc3c7;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Mantén todo tu CSS existente y solo asegúrate de que los botones se vean bien */
+.admin-options {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Esto asegura espacio entre botones */
+}
+
+.admin-option-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-option-btn:nth-child(3) {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+}
+
+.admin-option-btn:nth-child(3):hover {
+    background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
+}
+.admin-option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #2980b9 0%, #2573a7 100%);
+}
+
+.btn-icon {
+    font-size: 24px;
+}
+
+.btn-text {
+    flex: 1;
+    text-align: center;
+}
+
+.footer {
+    padding: 25px;
+    background: #f8f9fa;
+    border-top: 2px solid #e9ecef;
+}
+
+.logout-btn {
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        margin: 10px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .admin-info h2 {
+        font-size: 16px;
+    }
+    
+    .admin-option-btn {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    .btn-icon {
+        font-size: 20px;
+    }
+}
+.logo-section {
+    padding: 30px;
+    background: #ecf0f1;
+    display: flex;
+    justify-content: center;
+}
+
+.admin-profile {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Para el emoji */
+.profile-emoji {
+    font-size: 60px;
+}
+
+/* Para el SVG */
+.profile-icon {
+    width: 60px;
+    height: 60px;
+    color: white;
+}

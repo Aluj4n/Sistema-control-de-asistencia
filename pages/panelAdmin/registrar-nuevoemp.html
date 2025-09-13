@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nuevo Empleado - Sistema de Asistencia</title>
+    <link rel="stylesheet" href="../../css/panelAdmin/registrar-nuevoemp.css">
+</head>
+<body>
+    <button class="btn-regresar" onclick="regresarPanel()">
+        ← Regresar
+    </button>
+
+    <div class="container">
+        <h1 class="form-title">REGISTRAR NUEVO EMPLEADO</h1>
+        
+        <form id="empleadoForm">
+            <!-- Selección de Empresa -->
+            <div class="form-group">
+                <label class="form-label">Empresa:</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="empresa" value="silsan" required>
+                        <span class="radio-custom"></span>
+                        Silsan
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="empresa" value="nanas" required>
+                        <span class="radio-custom"></span>
+                        Nanas & Amas
+                    </label>
+                </div>
+            </div>
+
+            <!-- Cédula/ID -->
+            <div class="form-group">
+                <label for="cedula" class="form-label">Cédula/ID:</label>
+                <input 
+                    type="text" 
+                    id="cedula" 
+                    class="form-input readonly-input" 
+                    placeholder="Se generará automáticamente"
+                    readonly
+                >
+            </div>
+
+            <!-- Nombre Completo -->
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre Completo:</label>
+                <input 
+                    type="text" 
+                    id="nombre" 
+                    class="form-input" 
+                    placeholder="Ingrese el nombre completo"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="telefono" class="form-label">Teléfono:</label>
+                <input 
+                    type="tel" 
+                    id="telefono" 
+                    class="form-input" 
+                    placeholder="9XXXXXXXX"
+                    maxlength="9"
+                    pattern="9[0-9]{8}"
+                    required
+                >
+                <div id="telefonoError" class="error-message" style="display: none;"></div>
+            </div>
+
+            <!-- Crear PIN -->
+            <div class="form-group">
+                <div class="pin-header">
+                    <label for="pin" class="form-label">Crear Pin:</label>
+                    <button type="button" class="btn-generar-pin" onclick="generarPinAutomatico()">
+                        Generar PIN
+                    </button>
+                </div>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="pin" 
+                        class="form-input password-input" 
+                        placeholder="****"
+                        maxlength="4"
+                        readonly
+                    >
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Foto de empleado:</label>
+                <div class="photo-upload-container">
+                    <input type="file" id="foto" accept="image/*" style="display: none;">
+                    <button type="button" class="btn-upload" onclick="document.getElementById('foto').click()">
+                        Subir foto
+                    </button>
+                    <div class="photo-preview" id="photoPreview">Vista previa de la foto</div>
+                </div>
+            </div>
+
+            <div class="buttons-container">
+                <button type="button" class="btn btn-cancel" onclick="cancelarFormulario()">
+                    CANCELAR
+                </button>
+                <button type="submit" class="btn btn-save" id="saveBtn">
+                    GUARDAR
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="../../js/panelAdmin/registrar-nuevoemp.js"></script>
+</body>
+</html>

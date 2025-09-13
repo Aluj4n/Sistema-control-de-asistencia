@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida Administrador</title>
+    <link rel="stylesheet" href="../css/admin-welcome.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BIENVENIDA ADMINISTRADOR</h1>
+        </div>
+
+        <div class="admin-info">
+            <h2>Bienvenido administrador: <span id="adminName">Nombre</span></h2>
+        </div>
+
+        <div class="logo-section">
+            <div class="admin-profile">
+                <span class="profile-emoji">👤</span>
+            </div>
+        </div>
+
+        <div class="admin-options">
+            <button class="admin-option-btn" onclick="irARegistrarEmpleado()">
+                <span class="btn-icon">👥</span>
+                <span class="btn-text">Registrar Nuevo Empleado</span>
+            </button>
+
+            <button class="admin-option-btn" onclick="irAPanelAdministracion()">
+                <span class="btn-icon">📊</span>
+                <span class="btn-text">Panel de Administración</span>
+            </button>
+
+            <button class="admin-option-btn" onclick="irAVerSolicitudes()">
+                <span class="btn-icon">📋</span>
+                <span class="btn-text">Ver Solicitudes</span>
+            </button>
+        </div>
+
+        <div class="footer">
+            <button class="logout-btn" onclick="cerrarSesion()">
+                Cerrar Sesión
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/admin-welcome.js"></script>
+</body>
+</html>
