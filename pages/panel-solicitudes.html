@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Solicitudes</title>
+    <link rel="stylesheet" href="../css/panel-solicitudes.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera -->
+        <header class="header">
+            <h1>PANEL DE SOLICITUDES</h1>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="total-solicitudes">2</span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="solicitudes-pendientes">2</span>
+                    <span class="stat-label">Pendientes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="solicitudes-resueltas">0</span>
+                    <span class="stat-label">Resueltas</span>
+                </div>
+            </div>
+            <button class="btn-cerrar" onclick="cerrarPanel()">Cerrar Sesión</button>
+        </header>
+
+        <!-- Panel de control -->
+        <div class="controls">
+            <div class="controls-row">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Buscar por nombre, tipo o mensaje..." id="search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <select class="filter-select" id="filter-tipo">
+                    <option value="all">Todos los tipos</option>
+                    <option value="Registro">Registro</option>
+                    <option value="Problema">Problema</option>
+                    <option value="Consulta">Consulta</option>
+                </select>
+                <select class="filter-select" id="filter-estado">
+                    <option value="all">Todos los estados</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="proceso">En Proceso</option>
+                    <option value="urgente">Urgente</option>
+                </select>
+                <button class="btn-refresh" onclick="actualizarSolicitudes()">🔄 Actualizar</button>
+            </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            <h2 class="section-title">Solicitudes Activas</h2>
+            
+            <div class="table-container">
+                <table class="solicitudes-table" id="solicitudes-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Prioridad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="solicitudes-list">
+                        <!-- Las solicitudes se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+                
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">📋</div>
+                    <div class="empty-state-title">No hay solicitudes</div>
+                    <p>No se encontraron solicitudes que coincidan con los filtros aplicados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de detalles -->
+    <div id="modal-detalles" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Detalles de Solicitud</h3>
+                <span class="close" onclick="cerrarModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="detail-item">
+                    <div class="detail-label">Nombre Completo</div>
+                    <div class="detail-value" id="detalle-nombre"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Teléfono</div>
+                    <div class="detail-value" id="detalle-telefono"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Tipo de Solicitud</div>
+                    <div class="detail-value" id="detalle-tipo"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Estado</div>
+                    <div class="detail-value" id="detalle-estado"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Fecha de Creación</div>
+                    <div class="detail-value" id="detalle-fecha"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Mensaje</div>
+                    <div class="detail-value" id="detalle-mensaje"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cerrar" onclick="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/panel-solicitudes.js"></script>
+</body>
+</html>

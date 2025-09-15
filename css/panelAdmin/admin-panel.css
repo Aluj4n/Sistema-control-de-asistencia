@@ -1,0 +1,343 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.admin-panel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.admin-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.admin-header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.admin-header h1 i {
+    margin-right: 10px;
+}
+
+.welcome-text {
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.admin-actions {
+    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.admin-btn {
+    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-employees {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.btn-employees:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #2573a7 100%);
+}
+
+.btn-reports {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+}
+
+.btn-reports:hover {
+    background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
+}
+
+.btn-export {
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    color: white;
+}
+
+.btn-export:hover {
+    background: linear-gradient(135deg, #d35400 0%, #ba4a00 100%);
+}
+
+.excel-connection {
+    padding: 25px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.excel-connection h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.connection-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.url-input {
+    padding: 12px 15px;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.url-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.connection-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-connect, .btn-refresh {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-connect {
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+    color: white;
+}
+
+.btn-connect:hover {
+    background: linear-gradient(135deg, #229954 0%, #1e7e34 100%);
+}
+
+.btn-refresh {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+}
+
+.btn-refresh:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #2573a7 100%);
+}
+
+.connection-status {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.status-connected {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.status-disconnected {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.status-connecting {
+    color: #f39c12;
+    font-weight: 600;
+}
+
+.summary-section {
+    padding: 25px;
+}
+
+.summary-section h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.summary-table th {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.summary-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.summary-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.summary-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.status-present {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.status-absent {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.status-late {
+    color: #f39c12;
+    font-weight: 600;
+}
+
+.company-nanas {
+    color: #9b59b6;
+    font-weight: 600;
+}
+
+.company-silsan {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.table-footer {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.total-hours {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.navigation-buttons {
+    padding: 25px;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #e9ecef;
+}
+
+.nav-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back {
+    background: linear-gradient(135deg, #7f8c8d 0%, #95a5a6 100%);
+    color: white;
+}
+
+.btn-back:hover {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+}
+
+.btn-logout {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+.btn-logout:hover {
+    background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .connection-buttons {
+        flex-direction: column;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .summary-table {
+        font-size: 12px;
+    }
+    
+    .summary-table th,
+    .summary-table td {
+        padding: 8px 10px;
+    }
+}

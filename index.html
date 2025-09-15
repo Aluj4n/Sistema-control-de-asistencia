@@ -198,6 +198,7 @@
     <div class="container">
         <h1 class="welcome-title">¡Bienvenido!</h1>
         
+        
         <div class="empleados-section">
             <div class="section-title">Seleccione su empresa:</div>
             <div class="logos-container">
@@ -205,16 +206,19 @@
                     <div class="logo-circle nanas-logo">
                         <img src="images/logo-nanas.png" alt="Nanas y Amas" class="logo-image">
                     </div>
+                   
                 </button>
                 
                 <button class="logo-button" onclick="seleccionarEmpresa('silsan')" data-empresa="silsan">
                     <div class="logo-circle silsan-logo">
                         <img src="images/logo-silsan.png" alt="DROGUERÍA SILSAN" class="logo-image">
                     </div>
+                    
                 </button>
             </div>
         </div>
 
+      
         <div class="admin-section">
             <button class="admin-btn" onclick="irAdministrador()">
                 ADMINISTRADOR
@@ -222,30 +226,6 @@
         </div>
     </div>
 
-    <!-- Aquí va el código JavaScript -->
-    <script>
-        function seleccionarEmpresa(empresa) {
-            console.log(`Seleccionaste la empresa: ${empresa}`);
-            
-            // Efecto visual de clic
-            const button = document.querySelector(`[data-empresa="${empresa}"]`);
-            button.classList.add('clicked');
-            
-            setTimeout(() => {
-                button.classList.remove('clicked');
-            }, 300);
-
-            
-            if (empresa === 'nanas') {
-                window.location.href = 'identificacion-del-empleado-nanas.html';  
-            } else if (empresa === 'silsan') {
-                window.location.href = 'identificacion-del-empleado-silsan.html';  
-            }
-        }
-
-        function irAdministrador() {
-            window.location.href = 'admin-login.html';  // Redirige al panel de administrador
-        }
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>

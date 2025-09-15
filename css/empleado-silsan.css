@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 107, 107, 0.2);
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    min-height: 500px;
+}
+
+/* Mitad izquierda - Logo */
+.logo-section {
+    flex: 1;
+    background: linear-gradient(135deg, #4682b4 0%, #5a9eed 50%, #87addb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+}
+
+.logo-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%),
+                linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+.logo-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.company-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+/* Mitad derecha - Formulario */
+.form-section {
+    flex: 1;
+    padding: 50px 40px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #e0f7fa 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-title {
+    color: #1a237e;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.identify-text {
+    color: #0d47a1;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    display: block;
+    color: #1565c0;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #90caf9;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #42a5f5;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.1);
+}
+
+.form-input::placeholder {
+    color: #42a5f5;
+    opacity: 0.6;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0 20px 0;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back {
+    background: linear-gradient(135deg, #424242 0%, #212121 100%);
+    color: white;
+}
+
+.btn-back:hover {
+    background: linear-gradient(135deg, #616161 0%, #424242 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-login {
+    background: linear-gradient(135deg, #2196f3 0%, #42a5f5 100%);
+    color: white;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.register-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-text {
+    color: #0d47a1;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.register-btn {
+    background: none;
+    border: 2px solid #2196f3;
+    color: #1a237e;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+    background: #2196f3;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        max-width: 500px;
+    }
+    
+    .logo-section {
+        min-height: 200px;
+    }
+    
+    .logo-container {
+        padding: 20px;
+    }
+    
+    .company-logo {
+        max-width: 150px;
+        max-height: 150px;
+    }
+    
+    .form-section {
+        padding: 30px 25px;
+    }
+    
+    .form-title {
+        font-size: 24px;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

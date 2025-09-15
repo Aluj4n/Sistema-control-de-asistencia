@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/solicitud administrador.css">
+    <title>Solicitud para el administrador</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-solicitud">
+            <h2 class="form-title">Solicitud al administrador</h2>
+            
+            <label for="Teléfono +51 9XXXXXXXX"></label>
+            <label for="O envie un mensaje directo"></label>
+
+                <div class="solicitud">
+                    <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nombre" class="form-input" placeholder="Ingrese Su Nombre">
+                    <label for="Teléfono" class="form-label">Telefono</label>
+                        <input type="number" id="telefono" class="form-input" placeholder="9XXXXXXXX">
+                
+                </div>
+                <div class="solicitud"> 
+                    <label for="tipo-solicitud" class="form-label">Tipo De Solicitud</label>
+                    <select name="tipo-solicitud" id="tipo-solicitud">
+                        <option value="Solicitud1">Registro nuevo empleado</option>
+                        <option value="Solicitud2">Problema con acceso</option>
+                        <option value="Solicitud3">Olvide mi contraseña</option>
+                        <option value="Solicitud4">otro</option>
+                    </select>
+                </div>
+
+
+                <div class="solicitud">
+                    <label for="mensaje" class="form-label">Deja tu mensaje</label>
+                    <textarea name="tipo-solicitud"></textarea>
+                </div>
+
+                <div class="buttons-container">
+                    <button type="button" class="btn btn-cancelar">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-enviar" id="enviarBtn">
+                        Enviar Solicitud
+                    </button>
+                </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte de Asistencias</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #d4fc79, #96e6a1);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      font-size: 20px; 
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 45px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+      text-align: center;
+      color: #0d9488;
+      margin-bottom: 10px;
+      font-size: 32px; 
+    }
+    h4 {
+      margin: 30px 0 15px;
+      color: #1e293b;
+      font-size: 22px;
+      border-left: 5px solid #0d9488;
+      padding-left: 12px;
+    }
+    .params {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px 40px; /* más espacio entre filas y columnas */
+      margin-bottom: 30px;
+    }
+    .params label {
+        font-size: 22px; 
+      font-weight: bold;
+      color: #475569;
+    }
+    .params input, 
+    .params select {
+        width: 100%;
+        padding: 18px;
+        margin-top: 8px;
+        border: 2px solid #cbd5e1;
+        border-radius: 10px;
+        font-size: 22px; 
+        transition: border-color 0.3s;
+    }
+
+    .params select option {
+      font-size: 22px;
+    }
+    .params input:focus, 
+    .params select:focus {
+      outline: none;
+      border-color: #0d9488;
+    }
+    .btn {
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      color: #fff;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px; 
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.3s;
+      margin-top: 12px;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 18px; 
+    }
+    th, td {
+      padding: 16px;
+      text-align: center;
+    }
+    th {
+      background: #0d9488;
+      color: white;
+      font-size: 20px;
+    }
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+    tr:hover {
+      background: #ecfdf5;
+    }
+    .resumen {
+      margin: 30px 0;
+      padding: 22px;
+      border-left: 6px solid #0d9488;
+      background: #f0fdfa;
+      border-radius: 10px;
+      font-size: 18px;
+    }
+    .acciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .acciones button {
+      flex: 1;
+      min-width: 200px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px; 
+      transition: transform 0.2s, opacity 0.3s;
+      color: #fff;
+    }
+    .acciones button:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+    .pdf { background: linear-gradient(135deg, #dc2626, #ef4444); }
+    .excel { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+    .volver { background: linear-gradient(135deg, #6b7280, #9ca3af); }
+    .imp { background: linear-gradient(135deg, #16a34a, #22c55e); }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Reporte Detallado de Asistencias</h2>
+    <p style="text-align:center; font-size:20px;">Bienvenido: <b>[Nombre]</b></p>
+
+    <h4>Parámetros del Reporte</h4>
+    <div class="params">
+      <div>
+        <label>📅 Fecha Inicio:</label>
+        <input type="date">
+      </div>
+      <div>
+        <label>📅 Fecha Fin:</label>
+        <input type="date">
+      </div>
+      <div>
+        <label>🏢 Empresa:</label>
+        <select>
+          <option>Todas</option>
+          <option>Nanas</option>
+          <option>Silsan</option>
+        </select>
+      </div>
+      <div>
+        <label>👤 Empleado:</label>
+        <select>
+          <option>Todos</option>
+          <option>Juan Pérez</option>
+          <option>Ana Ruiz</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn">✨ Generar Reporte</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Empleado</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>15/09/24</td>
+          <td>Juan Pérez</td>
+          <td>08:00</td>
+          <td>17:00</td>
+        </tr>
+        <tr>
+          <td>15/09/24</td>
+          <td>Ana Ruiz</td>
+          <td>08:15</td>
+          <td>16:45</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="resumen">
+      <p><b>📌 Resumen:</b></p>
+      <p>- Total días: 22</p>
+      <p>- Horas trabajadas: 176:30</p>
+      <p>- Promedio diario: 8:01</p>
+    </div>
+
+    <div class="acciones">
+      <button class="imp" onclick="window.print()">🖨 Imprimir Reporte</button>
+      <button class="pdf">⬇ Exportar PDF</button>
+      <button class="excel">⬇ Exportar Excel</button>
+      <button class="volver" onclick="volverAlPanel()">⏪ Volver al Panel</button>
+    </div>
+  </div>
+
+  <script>
+function volverAlPanel() {
+    window.location.href = 'admin-panel.html'; // Volver al Formulario 7
+}
+
+// Aquí puedes agregar más funcionalidades para los botones de exportar
+function exportarPDF() {
+    alert('Exportando a PDF...');
+    // Lógica para exportar a PDF
+}
+
+function exportarExcel() {
+    alert('Exportando a Excel...');
+    // Lógica para exportar a Excel
+}
+
+// Asignar funciones a los botones
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.pdf').addEventListener('click', exportarPDF);
+    document.querySelector('.excel').addEventListener('click', exportarExcel);
+});
+</script>
+
+  
+</body>
+</html>
