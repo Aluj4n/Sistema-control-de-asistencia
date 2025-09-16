@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario 10 — Lista de empleados</title>
+  <link rel="stylesheet" href="../css/form-empleados.css">
+</head>
+<body>
+  <main class="card" id="form-lista-empleados">
+    <header class="card__header">
+      <h1>LISTA COMPLETA DE EMPLEADOS</h1>
+      <p class="welcome">Bienvenido: <span id="user-name">[Nombre]</span></p>
+    </header>
+
+    <!-- Filtros -->
+    <section class="filters">
+      <div class="filters__group">
+        <label for="f-empresa">Empresa:</label>
+        <select id="f-empresa">
+          <option value="__all__">Todas</option>
+        </select>
+      </div>
+      <div class="filters__group">
+        <label for="f-cargo">Cargo:</label>
+        <select id="f-cargo">
+          <option value="__all__">Todos</option>
+        </select>
+      </div>
+      <div class="filters__actions">
+        <button id="btn-buscar" class="btn primary">Buscar</button>
+        <button id="btn-limpiar" class="btn">Limpiar</button>
+      </div>
+    </section>
+
+    <!-- Tabla -->
+    <section class="table-wrapper">
+      <table class="table" id="tabla-empleados">
+        <thead>
+          <tr>
+            <th>Empleado</th>
+            <th>Empresa</th>
+            <th>Cargo</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- Contador + paginación -->
+    <div class="counter" id="contador">Mostrando 0 de 0 empleados</div>
+    <nav class="pagination" id="paginacion" aria-label="Paginación"></nav>
+
+    <!-- Botones de acción (sin texto "Acciones" en pantalla) -->
+    <section class="actions">
+      <button id="btn-imprimir" class="btn">Imprimir lista</button>
+      <button id="btn-exportar" class="btn">Exportar Excel</button>
+      <button id="btn-volver" class="btn">Volver al panel</button>
+    </section>
+  </main>
+
+  <!-- Nota: usa un servidor local (p. ej. Live Server) para que los módulos ES importen bien -->
+  <script type="module" src="../js/form-empleados.js"></script>
+</body>
+</html>
