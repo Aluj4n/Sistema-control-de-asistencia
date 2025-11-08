@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Sistema de Asistencia</title>
+    <link rel="stylesheet" href="../css/admin-login.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <div class="admin-logo">
+                <img src="../images/logo-sistema.png" alt="Sistema Asistencia">
+            </div>
+            <h1>Panel Administrativo</h1>
+            <p>Acceso exclusivo para administradores</p>
+        </div>
+
+        <div class="admin-form">
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsuario">Usuario Admin:</label>
+                    <input type="text" id="adminUsuario" name="usuario" required 
+                           placeholder="Ingresa tu usuario">
+                </div>
+
+                <div class="form-group">
+                    <label for="adminContraseña">Contraseña:</label>
+                    <input type="password" id="adminContraseña" name="contraseña" required 
+                           placeholder="Ingresa tu contraseña">
+                </div>
+
+                <button type="submit" class="btn-admin-login" id="btnAdminLogin">
+                    <span>Acceder al Panel</span>
+                    <div class="loading hidden" id="adminLoading">Verificando...</div>
+                </button>
+            </form>
+
+            <div class="admin-footer">
+                <button class="btn-back" onclick="volverInicio()">
+                    ← Volver al Inicio
+                </button>
+            </div>
+        </div>
+
+        <div class="admin-messages">
+            <div id="adminErrorMessage" class="message error hidden"></div>
+            <div id="adminSuccessMessage" class="message success hidden"></div>
+        </div>
+    </div>
+
+    <script src="../js/admin-login.js"></script>
+</body>
+</html>

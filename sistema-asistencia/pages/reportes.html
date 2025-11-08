@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Sistema de Asistencia</title>
+    <link rel="stylesheet" href="../css/reportes.css">
+</head>
+<body>
+    <div class="reportes-container">
+        <header class="reportes-header">
+            <div class="header-info">
+                <h1>📈 Reportes y Estadísticas</h1>
+                <p>Genera reportes detallados de asistencias</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-back" onclick="volverAlPanel()">← Volver al Panel</button>
+                <button class="btn-logout" onclick="cerrarSesionAdmin()">🚪 Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <main class="reportes-main">
+            <!-- Filtros -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <label for="fechaInicio">Fecha Inicio:</label>
+                    <input type="date" id="fechaInicio">
+                </div>
+                <div class="filter-group">
+                    <label for="fechaFin">Fecha Fin:</label>
+                    <input type="date" id="fechaFin">
+                </div>
+                <div class="filter-group">
+                    <label for="empresaReporte">Empresa:</label>
+                    <select id="empresaReporte">
+                        <option value="">Todas las empresas</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="tipoReporte">Tipo de Reporte:</label>
+                    <select id="tipoReporte">
+                        <option value="asistencias">Asistencias Diarias</option>
+                        <option value="horas">Horas Trabajadas</option>
+                        <option value="estadisticas">Estadísticas Generales</option>
+                    </select>
+                </div>
+                <button class="btn-generar" onclick="generarReporte()">📊 Generar Reporte</button>
+                <button class="btn-export" onclick="exportarReporte()">📄 Exportar PDF</button>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="stats-section" id="statsSection">
+                <h3>Resumen del Reporte</h3>
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Las estadísticas se cargarán aquí -->
+                </div>
+            </div>
+
+            <!-- Resultados -->
+            <div class="results-section">
+                <div class="section-header">
+                    <h3>Resultados del Reporte</h3>
+                    <div class="result-count" id="resultCount"></div>
+                </div>
+                <div class="table-container">
+                    <table class="report-table">
+                        <thead id="reportTableHeader">
+                            <!-- Encabezados dinámicos -->
+                        </thead>
+                        <tbody id="reportTableBody">
+                            <!-- Datos del reporte -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/reportes.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Empleado - Sistema de Asistencia</title>
+    <link rel="stylesheet" href="../css/empleado-login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <img src="../images/logo-sistema.png" alt="Sistema Asistencia" id="empresaLogo">
+            </div>
+            <h1 id="empresaNombre">Acceso Empleados</h1>
+            <p>Ingresa tus credenciales para registrar tu asistencia</p>
+        </div>
+
+        <div class="login-form">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" id="contraseña" name="contraseña" required>
+                </div>
+
+                <button type="submit" class="btn-login" id="btnLogin">
+                    <span>Ingresar</span>
+                    <div class="loading hidden" id="loading">Cargando...</div>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <button class="btn-back" onclick="volverInicio()">
+                    ← Volver al Inicio
+                </button>
+            </div>
+        </div>
+
+        <div class="messages">
+            <div id="errorMessage" class="message error hidden"></div>
+            <div id="successMessage" class="message success hidden"></div>
+        </div>
+    </div>
+
+    <script src="../js/empleado-login.js"></script>
+</body>
+</html>

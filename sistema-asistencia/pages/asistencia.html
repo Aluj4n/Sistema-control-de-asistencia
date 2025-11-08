@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Asistencia</title>
+    <link rel="stylesheet" href="../css/asistencia.css">
+</head>
+<body>
+    <div class="asistencia-container">
+        <!-- Header -->
+        <header class="asistencia-header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="../images/user-avatar.png" alt="Empleado" id="empleadoAvatar">
+                </div>
+                <div class="user-details">
+                    <h2 id="empleadoNombre">Nombre del Empleado</h2>
+                    <p id="empleadoCargo">Cargo - Empresa</p>
+                    <p class="fecha-hora" id="fechaHoraActual"></p>
+                </div>
+            </div>
+            <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </header>
+
+        <!-- Panel Principal -->
+        <main class="asistencia-main">
+            <!-- Estado Actual -->
+            <div class="estado-section">
+                <div class="estado-card" id="estadoCard">
+                    <h3>Estado Actual</h3>
+                    <div class="estado-info">
+                        <div class="estado-item">
+                            <span class="estado-label">Entrada:</span>
+                            <span class="estado-valor" id="horaEntrada">--:--</span>
+                        </div>
+                        <div class="estado-item">
+                            <span class="estado-label">Salida:</span>
+                            <span class="estado-valor" id="horaSalida">--:--</span>
+                        </div>
+                        <div class="estado-item">
+                            <span class="estado-label">Estado:</span>
+                            <span class="estado-badge" id="estadoAsistencia">No registrado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="acciones-section">
+                <div class="accion-card">
+                    <h3>Registrar Entrada</h3>
+                    <p>Registra tu hora de ingreso con foto y ubicación</p>
+                    <button class="btn-entrada" onclick="registrarEntrada()" id="btnEntrada">
+                        📸 Registrar Entrada
+                    </button>
+                </div>
+
+                <div class="accion-card">
+                    <h3>Registrar Salida</h3>
+                    <p>Registra tu hora de salida con foto y ubicación</p>
+                    <button class="btn-salida" onclick="registrarSalida()" id="btnSalida" disabled>
+                        📸 Registrar Salida
+                    </button>
+                </div>
+            </div>
+
+            <!-- Historial Reciente -->
+            <div class="historial-section">
+                <h3>Historial Reciente</h3>
+                <div class="historial-list" id="historialList">
+                    <!-- Los registros se cargarán aquí -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Cámara -->
+    <div id="cameraModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Tomar Foto</h3>
+                <button class="close-modal" onclick="cerrarModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="camera-container">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas" class="hidden"></canvas>
+                    <div id="capturedPhoto" class="hidden"></div>
+                </div>
+                <div class="camera-controls">
+                    <button id="btnCapture" onclick="capturarFoto()">📸 Capturar Foto</button>
+                    <button id="btnRetake" onclick="repetirFoto()" class="hidden">🔄 Repetir Foto</button>
+                    <button id="btnConfirm" onclick="confirmarRegistro()" class="hidden">✅ Confirmar Registro</button>
+                </div>
+                <div class="ubicacion-info">
+                    <p id="ubicacionStatus">📍 Obteniendo ubicación...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Procesando registro...</p>
+    </div>
+
+    <script src="../js/asistencia.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Control de Asistencia</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sistema de Control de Asistencia</h1>
+            <p class="subtitle">Registro seguro con geolocalización y fotografía</p>
+        </div>
+        <div class="empresas-section">
+            <h2>Seleccione su empresa:</h2>
+            <div class="empresas-grid">
+                <div class="empresa-card" onclick="seleccionarEmpresa('nanas')">
+                    <div class="empresa-logo nanas">
+                        <img src="images/logo-nanas.png" alt="Nanas y Amas">
+                    </div>
+                    <h3>Nanas y Amas</h3>
+                    <p>Personal doméstico</p>
+                </div>
+                <div class="empresa-card" onclick="seleccionarEmpresa('silsan')">
+                    <div class="empresa-logo silsan">
+                        <img src="images/logo-silsan.png" alt="Droguería Silsan">
+                    </div>
+                    <h3>Droguería Silsan</h3>
+                    <p>Colaboradores</p>
+                </div>
+                <div class="empresa-card" onclick="seleccionarEmpresa('valverde')">
+                    <div class="empresa-logo valverde">
+                        <img src="images/logo-valverde.png" alt="Valverde">
+                    </div>
+                    <h3>Valverde</h3>
+                    <p>Personal operativo</p>
+                </div>
+            </div>
+        </div>
+        <div class="admin-section">
+            <button class="admin-btn" onclick="irAdministrador()">ACCESO ADMINISTRADOR</button>
+        </div>
+        <footer class="footer">
+            <p>© 2025 Sistema de Asistencia - Versión 2.0</p>
+        </footer>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
