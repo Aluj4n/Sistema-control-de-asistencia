@@ -16,6 +16,7 @@
             <p>Ingresa tus credenciales para registrar tu asistencia</p>
         </div>
 
+        <!-- ✅ AGREGAR EL FORMULARIO QUE FALTA -->
         <div class="login-form">
             <form id="loginForm">
                 <div class="form-group">
@@ -47,6 +48,40 @@
         </div>
     </div>
 
+    <script>
+        // CARGAR LOGO DE LA EMPRESA SELECCIONADA
+        document.addEventListener('DOMContentLoaded', function() {
+            const empresaSeleccionada = JSON.parse(localStorage.getItem('empresaSeleccionada'));
+            
+            if (empresaSeleccionada) {
+                // Cambiar el título
+                document.getElementById('empresaNombre').textContent = `Acceso - ${empresaSeleccionada.nombre}`;
+                
+                // Cargar logo de la empresa
+                cargarLogoEmpresa(empresaSeleccionada.id);
+            }
+        });
+
+        async function cargarLogoEmpresa(empresaId) {
+            try {
+                const response = await fetch(`http://localhost:3000/api/empresas/${empresaId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        const logoPath = data.empresa.LogoPath || 'images/logo-sistema.png';
+                        document.getElementById('empresaLogo').src = `../${logoPath}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error cargando logo:', error);
+            }
+        }
+
+        function volverInicio() {
+            window.location.href = '../index.html';
+        }
+    </script>
+    
     <script src="../js/empleado-login.js"></script>
 </body>
 </html>

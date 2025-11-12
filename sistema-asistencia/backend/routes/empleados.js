@@ -1,8 +1,38 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 const { getConnection, sql } = require('../database/connection');
 
 const router = express.Router();
+
+// Configurar multer para fotos de empleados
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadPath = path.join(__dirname, '../../images/empleados');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = 'empleado-' + Date.now() + path.extname(file.originalname);
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Solo se permiten imágenes'));
+    }
+  },
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+});
 
 // Obtener todos los empleados
 router.get('/', async (req, res) => {
@@ -65,9 +95,12 @@ router.get('/empresa/:empresaId', async (req, res) => {
 });
 
 // Crear nuevo empleado
-router.post('/', async (req, res) => {
+router.post('/', upload.single('foto'), async (req, res) => {
     let pool;
     try {
+        console.log('📝 Datos recibidos:', req.body);
+
+        // ✅ SOLUCIÓN: Usar el campo con encoding corrupto o el campo corregido
         const {
             nombre,
             apellidos,
@@ -77,13 +110,27 @@ router.post('/', async (req, res) => {
             cargo,
             empresaId,
             usuario,
-            contraseña,
-            horarioEntrada,
-            horarioSalida
+            horarios
         } = req.body;
+
+        // ✅ OBTENER CONTRASEÑA DE CUALQUIER FORMA POSIBLE
+        let contraseña = req.body.password || 
+                        req.body.contraseña || 
+                        req.body['contraseÃ±a'] || 
+                        req.body.contrase_a;
+
+        console.log('🔑 Contraseña obtenida:', contraseña);
 
         // Validaciones básicas
         if (!nombre || !apellidos || !dni || !empresaId || !usuario || !contraseña) {
+            console.log('❌ Campos faltantes:', {
+                nombre: !!nombre,
+                apellidos: !!apellidos,
+                dni: !!dni,
+                empresaId: !!empresaId,
+                usuario: !!usuario,
+                contraseña: !!contraseña
+            });
             return res.status(400).json({
                 success: false,
                 message: 'Campos requeridos: nombre, apellidos, DNI, empresa, usuario y contraseña'
@@ -116,45 +163,76 @@ router.post('/', async (req, res) => {
             });
         }
 
+        // Procesar foto si se subió
+        let fotoPath = null;
+        if (req.file) {
+            fotoPath = 'images/empleados/' + req.file.filename;
+        }
+
         // Encriptar contraseña
         const contraseñaHash = await bcrypt.hash(contraseña, 10);
 
-        // Insertar nuevo empleado
+        // Insertar empleado
         const result = await pool.request()
             .input('nombre', sql.VarChar(50), nombre)
             .input('apellidos', sql.VarChar(50), apellidos)
             .input('dni', sql.Char(8), dni)
-            .input('telefono', sql.VarChar(15), telefono)
-            .input('direccion', sql.VarChar(255), direccion)
-            .input('cargo', sql.VarChar(50), cargo)
+            .input('telefono', sql.VarChar(15), telefono || '')
+            .input('direccion', sql.VarChar(255), direccion || '')
+            .input('cargo', sql.VarChar(50), cargo || '')
             .input('empresaId', sql.Int, empresaId)
             .input('usuario', sql.VarChar(50), usuario)
             .input('contraseña', sql.VarChar(255), contraseñaHash)
-            .input('horarioEntrada', sql.Time, horarioEntrada)
-            .input('horarioSalida', sql.Time, horarioSalida)
+            .input('fotoPath', sql.VarChar(255), fotoPath)
             .query(`
                 INSERT INTO Empleados (
-                    Nombre, Apellidos, DNI, Telefono, Direccion, Cargo, 
-                    EmpresaID, Usuario, Contraseña, HorarioEntrada, HorarioSalida
-                ) 
-                OUTPUT INSERTED.EmpleadoID, INSERTED.Nombre, INSERTED.Apellidos
+                    Nombre, Apellidos, DNI, Telefono, Direccion, Cargo,
+                    EmpresaID, Usuario, Contraseña, FotoPath
+                )
+                OUTPUT INSERTED.EmpleadoID
                 VALUES (
                     @nombre, @apellidos, @dni, @telefono, @direccion, @cargo,
-                    @empresaId, @usuario, @contraseña, @horarioEntrada, @horarioSalida
+                    @empresaId, @usuario, @contraseña, @fotoPath
                 )
             `);
+
+        const empleadoId = result.recordset[0].EmpleadoID;
+
+        // Insertar horarios semanales (si existen)
+        if (horarios) {
+            try {
+                const horariosArray = JSON.parse(horarios);
+                if (Array.isArray(horariosArray)) {
+                    for (const h of horariosArray) {
+                        if (h.activo && h.horaEntrada && h.horaSalida) {
+                            await pool.request()
+                                .input('empleadoId', sql.Int, empleadoId)
+                                .input('diaSemana', sql.Int, h.dia)
+                                .input('horaEntrada', sql.Time, h.horaEntrada)
+                                .input('horaSalida', sql.Time, h.horaSalida)
+                                .query(`
+                                    INSERT INTO HorariosEmpleados (EmpleadoID, DiaSemana, HoraEntrada, HoraSalida, Activo)
+                                    VALUES (@empleadoId, @diaSemana, @horaEntrada, @horaSalida, 1)
+                                `);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error procesando horarios:', error);
+            }
+        }
 
         res.json({
             success: true,
             message: 'Empleado creado exitosamente',
-            empleado: result.recordset[0]
+            empleadoId
         });
 
     } catch (error) {
         console.error('Error creando empleado:', error);
         res.status(500).json({
             success: false,
-            message: 'Error creando empleado'
+            message: 'Error creando empleado: ' + error.message
         });
     }
 });

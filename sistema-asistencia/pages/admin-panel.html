@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo - Sistema de Asistencia</title>
     <link rel="stylesheet" href="../css/admin-panel.css">
 </head>
+
 <body>
     <div class="admin-panel">
         <!-- Header -->
@@ -208,9 +210,9 @@
                 <button class="close-modal" onclick="cerrarModalEmpleado()">×</button>
             </div>
             <div class="modal-body">
-                <form id="formEmpleado" class="modal-form">
+                <form id="formEmpleado" class="modal-form" enctype="multipart/form-data">
                     <input type="hidden" id="empleadoId">
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="empleadoNombre">Nombre *</label>
@@ -251,14 +253,29 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="empleadoHorarioEntrada">Horario Entrada</label>
-                            <input type="time" id="empleadoHorarioEntrada">
+                    <!-- Foto de Perfil -->
+                    <div class="form-group">
+                        <label for="empleadoFoto">Foto de Perfil</label>
+                        <div class="file-upload-container">
+                            <div class="photo-preview" id="photoPreview">
+                                <img id="previewImage" src="" alt="Vista previa">
+                                <span id="noPhotoText">📷 Sin foto</span>
+                                <button type="button" id="removePhotoBtn" class="remove-photo hidden"
+                                    onclick="removePhoto()">❌</button>
+                            </div>
+                            <input type="file" id="empleadoFoto" accept="image/*" onchange="previewPhoto(this)"
+                                style="display: none;">
+                            <label for="empleadoFoto" class="file-upload-btn">
+                                📸 Seleccionar Foto
+                            </label>
                         </div>
-                        <div class="form-group">
-                            <label for="empleadoHorarioSalida">Horario Salida</label>
-                            <input type="time" id="empleadoHorarioSalida">
+                    </div>
+
+                    <!-- Horarios Semanales -->
+                    <div class="form-group">
+                        <label>Horarios Semanales *</label>
+                        <div class="horarios-container" id="horariosContainer">
+                            <!-- Los horarios se generarán dinámicamente -->
                         </div>
                     </div>
 
@@ -267,9 +284,12 @@
                             <label for="empleadoUsuario">Usuario *</label>
                             <input type="text" id="empleadoUsuario" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group password-group">
                             <label for="empleadoContraseña">Contraseña *</label>
-                            <input type="password" id="empleadoContraseña" required>
+                            <div class="password-input-container">
+                                <input type="password" id="empleadoContraseña" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
+                            </div>
                         </div>
                     </div>
 
@@ -290,9 +310,9 @@
                 <button class="close-modal" onclick="cerrarModalEmpresa()">×</button>
             </div>
             <div class="modal-body">
-                <form id="formEmpresa" class="modal-form">
+                <form id="formEmpresa" class="modal-form" enctype="multipart/form-data">
                     <input type="hidden" id="empresaId">
-                    
+
                     <div class="form-group">
                         <label for="empresaNombre">Nombre *</label>
                         <input type="text" id="empresaNombre" required>
@@ -303,9 +323,20 @@
                         <textarea id="empresaDescripcion" rows="3"></textarea>
                     </div>
 
+                    <!-- ✅ AGREGAR PREVIEW DEL LOGO -->
                     <div class="form-group">
-                        <label for="empresaLogo">Logo Path</label>
-                        <input type="text" id="empresaLogo" placeholder="images/logo-empresa.png">
+                        <label for="empresaLogo">Logo de la Empresa</label>
+
+                        <!-- Preview del logo actual -->
+                        <div class="logo-preview" id="logoPreview">
+                            <img id="previewLogoImage" src="" alt="Logo actual"
+                                style="max-width: 100px; display: none;">
+                            <span id="noLogoText">🖼️ Sin logo</span>
+                        </div>
+
+                        <input type="file" id="empresaLogo" name="logo" accept="image/*"
+                            onchange="previewEmpresaLogo(this)">
+                        <small style="color: #666; font-size: 12px;">Formatos: JPG, PNG, GIF (máximo 5MB)</small>
                     </div>
 
                     <div class="form-actions">
@@ -327,4 +358,5 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/admin-panel.js"></script>
 </body>
+
 </html>

@@ -93,18 +93,6 @@ body {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.empresa-card.nanas:hover {
-    border-color: #ff6b6b;
-}
-
-.empresa-card.silsan:hover {
-    border-color: #1e90ff;
-}
-
-.empresa-card.valverde:hover {
-    border-color: #2E8B57;
-}
-
 .empresa-logo {
     width: 120px;
     height: 120px;
@@ -116,19 +104,57 @@ body {
     padding: 15px;
 }
 
-.empresa-logo.nanas {
-    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-    border: 4px solid #ff6b6b;
+/* ✅ AGREGAR ESTO - Estilos generales para todas las empresas */
+.empresa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border-color: #3498db !important; /* Borde azul al hover */
 }
 
-.empresa-logo.silsan {
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-    border: 4px solid #1e90ff;
+.empresa-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 4px solid #3498db; /* Borde azul para todos */
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
 }
 
-.empresa-logo.valverde {
-    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-    border: 4px solid #2E8B57;
+.empresa-logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.empresa-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid #e9ecef; /* Borde gris claro por defecto */
+}
+
+.empresa-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.empresa-card p {
+    color: #7f8c8d;
+    font-size: 0.95em;
+    line-height: 1.4;
 }
 
 .empresa-logo img {
@@ -178,6 +204,37 @@ body {
     text-align: center;
     padding: 20px;
     font-size: 0.9em;
+}
+
+/* Estilos para el loading y errores */
+.loading, .no-empresas, .error-empresas {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-size: 18px;
+    grid-column: 1 / -1;
+}
+
+.error-empresas button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.error-empresas button:hover {
+    background: #c0392b;
+}
+
+/* Asegurar que las imágenes se muestren bien */
+.empresa-logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 /* Responsive */

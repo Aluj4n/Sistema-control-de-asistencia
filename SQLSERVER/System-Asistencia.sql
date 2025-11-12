@@ -1,19 +1,17 @@
 -- ===============================================================
 -- SISTEMA DE CONTROL DE ASISTENCIA
--- Script limpio y ordenado listo para ejecutar
+-- Script completo para ejecutar de una vez
 -- ===============================================================
 
--- 1?? Crear la base de datos
+-- 1. Crear la base de datos
 CREATE DATABASE SistemaAsistencia;
 GO
 
--- 2?? Usar la base de datos
+-- 2. Usar la base de datos
 USE SistemaAsistencia;
 GO
 
--- ===============================================================
--- 3?? TABLA: Empresas
--- ===============================================================
+-- 3. Crear tabla Empresas
 CREATE TABLE Empresas (
     EmpresaID INT IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(50) NOT NULL UNIQUE,
@@ -22,9 +20,7 @@ CREATE TABLE Empresas (
 );
 GO
 
--- ===============================================================
--- 4?? TABLA: Empleados
--- ===============================================================
+-- 4. Crear tabla Empleados
 CREATE TABLE Empleados (
     EmpleadoID INT IDENTITY(1,1) PRIMARY KEY,
     Nombre VARCHAR(50) NOT NULL,
@@ -34,8 +30,6 @@ CREATE TABLE Empleados (
     Direccion VARCHAR(255),
     Cargo VARCHAR(50),
     FotoPath VARCHAR(255),
-    HorarioEntrada TIME,
-    HorarioSalida TIME,
     EmpresaID INT NOT NULL,
     Usuario VARCHAR(50) NOT NULL UNIQUE,
     Contraseña VARCHAR(255) NOT NULL,
@@ -44,9 +38,20 @@ CREATE TABLE Empleados (
 );
 GO
 
--- ===============================================================
--- 5?? TABLA: Asistencias
--- ===============================================================
+-- 5. Crear tabla HorariosEmpleados
+CREATE TABLE HorariosEmpleados (
+    HorarioID INT IDENTITY(1,1) PRIMARY KEY,
+    EmpleadoID INT NOT NULL,
+    DiaSemana INT NOT NULL, -- 1: Lunes, 2: Martes, ..., 7: Domingo
+    HoraEntrada TIME,
+    HoraSalida TIME,
+    Activo BIT DEFAULT 1,
+    FOREIGN KEY (EmpleadoID) REFERENCES Empleados(EmpleadoID) ON DELETE CASCADE,
+    CONSTRAINT UQ_Empleado_Dia UNIQUE (EmpleadoID, DiaSemana)
+);
+GO
+
+-- 6. Crear tabla Asistencias
 CREATE TABLE Asistencias (
     AsistenciaID INT IDENTITY(1,1) PRIMARY KEY,
     EmpleadoID INT NOT NULL,
@@ -65,9 +70,7 @@ CREATE TABLE Asistencias (
 );
 GO
 
--- ===============================================================
--- 6?? TABLA: UsuariosAdmin
--- ===============================================================
+-- 7. Crear tabla UsuariosAdmin
 CREATE TABLE UsuariosAdmin (
     AdminID INT IDENTITY(1,1) PRIMARY KEY,
     Usuario VARCHAR(50) NOT NULL UNIQUE,
@@ -77,28 +80,18 @@ CREATE TABLE UsuariosAdmin (
 );
 GO
 
--- ===============================================================
--- 7?? Insertar empresas de prueba
--- ===============================================================
+-- 8. Insertar empresas de prueba
 INSERT INTO Empresas (Nombre, Descripcion, LogoPath) VALUES
 ('Nanas y Amas', 'Personal doméstico', 'images/logo-nanas.png'),
 ('Droguería Silsan', 'Colaboradores', 'images/logo-silsan.png'),
 ('Valverde', 'Personal operativo', 'images/logo-valverde.png');
 GO
 
--- ===============================================================
--- 8?? Crear administrador con contraseña simple (sin encriptar)
--- ===============================================================
-DELETE FROM UsuariosAdmin WHERE Usuario = 'admin';
-GO
-
-INSERT INTO UsuariosAdmin (Usuario, Contraseña, NombreCompleto)
+-- 9. Insertar administrador
+INSERT INTO UsuariosAdmin (Usuario, Contraseña, NombreCompleto) 
 VALUES ('admin', 'admin123', 'Administrador General');
 GO
 
--- ===============================================================
--- 9?? Verificar que todo se insertó correctamente
--- ===============================================================
 SELECT * FROM Empresas;
 SELECT * FROM UsuariosAdmin;
 GO

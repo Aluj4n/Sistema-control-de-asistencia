@@ -14,28 +14,9 @@
         </div>
         <div class="empresas-section">
             <h2>Seleccione su empresa:</h2>
-            <div class="empresas-grid">
-                <div class="empresa-card" onclick="seleccionarEmpresa('nanas')">
-                    <div class="empresa-logo nanas">
-                        <img src="images/logo-nanas.png" alt="Nanas y Amas">
-                    </div>
-                    <h3>Nanas y Amas</h3>
-                    <p>Personal doméstico</p>
-                </div>
-                <div class="empresa-card" onclick="seleccionarEmpresa('silsan')">
-                    <div class="empresa-logo silsan">
-                        <img src="images/logo-silsan.png" alt="Droguería Silsan">
-                    </div>
-                    <h3>Droguería Silsan</h3>
-                    <p>Colaboradores</p>
-                </div>
-                <div class="empresa-card" onclick="seleccionarEmpresa('valverde')">
-                    <div class="empresa-logo valverde">
-                        <img src="images/logo-valverde.png" alt="Valverde">
-                    </div>
-                    <h3>Valverde</h3>
-                    <p>Personal operativo</p>
-                </div>
+            <div class="empresas-grid" id="empresasGrid">
+                <!-- Las empresas se cargarán dinámicamente aquí -->
+                <div class="loading">Cargando empresas...</div>
             </div>
         </div>
         <div class="admin-section">

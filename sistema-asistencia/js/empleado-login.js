@@ -1,4 +1,4 @@
-// js/empleado-login.js
+// js/empleado-login.js - CÓDIGO COMPLETO Y FUNCIONAL
 class EmpleadoLogin {
     constructor() {
         this.empresa = null;
@@ -23,40 +23,53 @@ class EmpleadoLogin {
         }
     }
 
-    updateUI() {
+    async updateUI() {
         if (this.empresa) {
-            document.getElementById('empresaNombre').textContent = 
-                `Acceso - ${this.empresa.nombre}`;
+            document.getElementById('empresaNombre').textContent = `Acceso - ${this.empresa.nombre}`;
             
-            // Actualizar logo según la empresa
-            this.setEmpresaLogo();
+            // Cargar logo dinámicamente
+            await this.setEmpresaLogo();
         }
     }
 
-    setEmpresaLogo() {
+    async setEmpresaLogo() {
         const logoImg = document.getElementById('empresaLogo');
-        const logos = {
-            1: '../images/logo-nanas.png',
-            2: '../images/logo-silsan.png', 
-            3: '../images/logo-valverde.png'
-        };
         
-        logoImg.src = logos[this.empresa.id] || '../images/logo-sistema.png';
+        try {
+            // Cargar logo desde la API
+            const response = await fetch(`http://localhost:3000/api/empresas/${this.empresa.id}`);
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    const logoPath = data.empresa.LogoPath || 'images/logo-sistema.png';
+                    logoImg.src = `../${logoPath}`;
+                    return;
+                }
+            }
+        } catch (error) {
+            console.error('Error cargando logo:', error);
+        }
+        
+        // Fallback
+        logoImg.src = '../images/logo-sistema.png';
     }
 
     setupEventListeners() {
         const loginForm = document.getElementById('loginForm');
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleLogin();
-        });
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleLogin();
+            });
+        }
     }
 
     async handleLogin() {
         const usuario = document.getElementById('usuario').value.trim();
         const contraseña = document.getElementById('contraseña').value;
 
-        // Validaciones
+        console.log('🔐 Intentando login:', { usuario, contraseña, empresaId: this.empresa.id });
+
         if (!usuario || !contraseña) {
             this.showError('Por favor completa todos los campos');
             return;
@@ -65,7 +78,7 @@ class EmpleadoLogin {
         this.setLoading(true);
 
         try {
-            const response = await fetch('/api/auth/empleado', {
+            const response = await fetch('http://localhost:3000/api/auth/empleado', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -77,7 +90,10 @@ class EmpleadoLogin {
                 })
             });
 
+            console.log('📨 Respuesta del servidor:', response.status);
+
             const data = await response.json();
+            console.log('📊 Datos de respuesta:', data);
 
             if (data.success) {
                 this.showSuccess('Login exitoso! Redirigiendo...');
@@ -104,17 +120,19 @@ class EmpleadoLogin {
 
     setLoading(loading) {
         const btnLogin = document.getElementById('btnLogin');
-        const btnText = btnLogin.querySelector('span');
-        const loadingEl = document.getElementById('loading');
+        if (btnLogin) {
+            const btnText = btnLogin.querySelector('span');
+            const loadingEl = document.getElementById('loading');
 
-        if (loading) {
-            btnText.classList.add('hidden');
-            loadingEl.classList.remove('hidden');
-            btnLogin.disabled = true;
-        } else {
-            btnText.classList.remove('hidden');
-            loadingEl.classList.add('hidden');
-            btnLogin.disabled = false;
+            if (loading) {
+                btnText.classList.add('hidden');
+                loadingEl.classList.remove('hidden');
+                btnLogin.disabled = true;
+            } else {
+                btnText.classList.remove('hidden');
+                loadingEl.classList.add('hidden');
+                btnLogin.disabled = false;
+            }
         }
     }
 
@@ -128,13 +146,14 @@ class EmpleadoLogin {
 
     showMessage(elementId, message) {
         const element = document.getElementById(elementId);
-        element.textContent = message;
-        element.classList.remove('hidden');
-        
-        // Auto-ocultar después de 5 segundos
-        setTimeout(() => {
-            element.classList.add('hidden');
-        }, 5000);
+        if (element) {
+            element.textContent = message;
+            element.classList.remove('hidden');
+            
+            setTimeout(() => {
+                element.classList.add('hidden');
+            }, 5000);
+        }
     }
 }
 

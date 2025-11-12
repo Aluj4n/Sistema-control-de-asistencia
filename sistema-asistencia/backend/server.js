@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const fileUpload = require('express-fileupload');
 
 // Importar rutas
 const authRoutes = require('./routes/auth');
@@ -14,14 +13,10 @@ const ubicacionesRoutes = require('./routes/ubicaciones');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
+// ✅ MIDDLEWARES CORREGIDOS - ELIMINAR LOS LIMITS
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(fileUpload({
-    createParentPath: true,
-    limits: { fileSize: 5 * 1024 * 1024 }
-}));
+app.use(express.json()); // ← SIN limits
+app.use(express.urlencoded({ extended: true })); // ← SIN limits
 
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, '..')));
