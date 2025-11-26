@@ -9,6 +9,7 @@ const asistenciasRoutes = require('./routes/asistencias');
 const empresasRoutes = require('./routes/empresas');
 const reportesRoutes = require('./routes/reportes');
 const ubicacionesRoutes = require('./routes/ubicaciones');
+// ✅ QUITAR esta línea: app.use("/api/estados", require("./routes/estados"));
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +33,8 @@ app.use('/api/asistencias', asistenciasRoutes);
 app.use('/api/empresas', empresasRoutes);
 app.use('/api/reportes', reportesRoutes);
 app.use('/api/ubicaciones', ubicacionesRoutes);
+// ✅ MOVER esta línea AQUÍ (después de inicializar app)
+// app.use("/api/estados", require("./routes/estados"));
 
 // Ruta principal
 app.get('/', (req, res) => {

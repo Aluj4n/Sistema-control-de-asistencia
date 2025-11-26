@@ -1,6 +1,5 @@
 -- ===============================================================
--- SISTEMA DE CONTROL DE ASISTENCIA
--- Script completo para ejecutar de una vez
+-- SISTEMA DE CONTROL DE ASISTENCIA - ACTUALIZADO
 -- ===============================================================
 
 -- 1. Crear la base de datos
@@ -31,9 +30,11 @@ CREATE TABLE Empleados (
     Cargo VARCHAR(50),
     FotoPath VARCHAR(255),
     EmpresaID INT NOT NULL,
-    Usuario VARCHAR(50) NOT NULL UNIQUE,
+    Usuario VARCHAR(50) NOT NULL,
     Contraseña VARCHAR(255) NOT NULL,
     Activo BIT DEFAULT 1,
+    FechaInicioTurno DATE NULL,
+    FechaFinTurno DATE NULL,
     FOREIGN KEY (EmpresaID) REFERENCES Empresas(EmpresaID) ON DELETE CASCADE
 );
 GO

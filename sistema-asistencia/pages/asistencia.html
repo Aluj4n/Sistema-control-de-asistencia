@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Asistencia</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4854/4854344.png">
     <link rel="stylesheet" href="../css/asistencia.css">
 </head>
+
 <body>
     <div class="asistencia-container">
         <!-- Header -->
@@ -51,7 +54,7 @@
                 <div class="accion-card">
                     <h3>Registrar Entrada</h3>
                     <p>Registra tu hora de ingreso con foto y ubicación</p>
-                    <button class="btn-entrada" onclick="registrarEntrada()" id="btnEntrada">
+                    <button class="btn-entrada" onclick="window.asistenciaApp.registrarEntrada()" id="btnEntrada">
                         📸 Registrar Entrada
                     </button>
                 </div>
@@ -59,7 +62,7 @@
                 <div class="accion-card">
                     <h3>Registrar Salida</h3>
                     <p>Registra tu hora de salida con foto y ubicación</p>
-                    <button class="btn-salida" onclick="registrarSalida()" id="btnSalida" disabled>
+                    <button class="btn-salida" onclick="window.asistenciaApp.registrarSalida()" id="btnSalida" disabled>
                         📸 Registrar Salida
                     </button>
                 </div>
@@ -108,4 +111,5 @@
 
     <script src="../js/asistencia.js"></script>
 </body>
+
 </html>

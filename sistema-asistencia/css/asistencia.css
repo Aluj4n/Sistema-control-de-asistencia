@@ -34,20 +34,29 @@ body {
     gap: 15px;
 }
 
+/* ✅ NUEVO (SOLUCIÓN) */
 .user-avatar {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: #f8f9fa;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 3px solid #3498db;
+    overflow: hidden;
+    /* ✅ IMPORTANTE: Para que la imagen no se salga del círculo */
 }
 
 .user-avatar img {
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    /* ✅ OCUPAR TODO EL CONTENEDOR */
+    height: 100%;
+    /* ✅ OCUPAR TODO EL CONTENEDOR */
+    object-fit: cover;
+    /* ✅ MANTENER PROPORCIONES Y CUBRIR TODO */
+    border-radius: 50%;
+    /* ✅ ASEGURAR FORMA CIRCULAR */
 }
 
 .user-details h2 {
@@ -86,7 +95,7 @@ body {
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
+    grid-template-areas:
         "estado estado"
         "acciones acciones"
         "historial historial";
@@ -184,7 +193,8 @@ body {
     font-size: 0.9em;
 }
 
-.btn-entrada, .btn-salida {
+.btn-entrada,
+.btn-salida {
     width: 100%;
     padding: 15px;
     border: none;
@@ -215,7 +225,8 @@ body {
     box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
 }
 
-.btn-entrada:disabled, .btn-salida:disabled {
+.btn-entrada:disabled,
+.btn-salida:disabled {
     background: #95a5a6;
     cursor: not-allowed;
     transform: none;
@@ -335,7 +346,9 @@ body {
     justify-content: center;
 }
 
-#video, #canvas, #capturedPhoto {
+#video,
+#canvas,
+#capturedPhoto {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -415,8 +428,13 @@ body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .hidden {
@@ -427,7 +445,7 @@ body {
 @media (max-width: 768px) {
     .asistencia-main {
         grid-template-columns: 1fr;
-        grid-template-areas: 
+        grid-template-areas:
             "estado"
             "acciones"
             "historial";
@@ -446,4 +464,141 @@ body {
     .estado-info {
         grid-template-columns: 1fr;
     }
+}
+
+/* ✅ AGREGAR ESTOS ESTILOS PARA ADVERTENCIAS */
+.advertencia-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.advertencia-modal {
+    background: white;
+    border-radius: 10px;
+    padding: 0;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+.advertencia-header {
+    background: #3498db;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.advertencia-icono {
+    font-size: 24px;
+}
+
+.advertencia-header h3 {
+    margin: 0;
+    flex: 1;
+}
+
+.advertencia-cerrar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.advertencia-cerrar:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.advertencia-body {
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.advertencia-footer {
+    padding: 0 20px 20px;
+    text-align: center;
+}
+
+.btn-advertencia {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-advertencia:hover {
+    background: #2980b9;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para advertencia con confirmación */
+.advertencia-footer {
+    padding: 0 20px 20px;
+    text-align: center;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-advertencia-cancelar {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-advertencia-cancelar:hover {
+    background: #c0392b;
+}
+
+.btn-advertencia-continuar {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-advertencia-continuar:hover {
+    background: #2980b9;
 }

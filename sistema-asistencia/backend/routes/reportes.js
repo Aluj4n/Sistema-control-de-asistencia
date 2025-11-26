@@ -1,17 +1,29 @@
-const express = require('express');
-const { getConnection, sql } = require('../database/connection');
+const express = require("express");
+const { getConnection, sql } = require("../database/connection");
 
 const router = express.Router();
 
 // Reporte de asistencias por fecha
-router.get('/asistencias', async (req, res) => {
-    let pool;
-    try {
-        const { fechaInicio, fechaFin, empresaId } = req.query;
+router.get("/asistencias", async (req, res) => {
+  let pool;
+  try {
+    let { fechaInicio, fechaFin, empresaId } = req.query;
 
-        pool = await getConnection();
+    // ✅ CORREGIR LAS FECHAS PARA LA CONSULTA
+    fechaInicio = corregirFechaConsulta(fechaInicio);
+    fechaFin = corregirFechaConsulta(fechaFin);
 
-        let query = `
+    console.log(
+      "📊 Reporte - Fechas frontend:",
+      req.query.fechaInicio,
+      "a",
+      req.query.fechaFin
+    );
+    console.log("📊 Reporte - Fechas corregidas:", fechaInicio, "a", fechaFin);
+
+    pool = await getConnection();
+
+    let query = `
             SELECT 
                 a.Fecha,
                 e.Nombre,
@@ -28,54 +40,57 @@ router.get('/asistencias', async (req, res) => {
             WHERE a.Fecha BETWEEN @fechaInicio AND @fechaFin
         `;
 
-        if (empresaId) {
-            query += ` AND e.EmpresaID = @empresaId`;
-        }
-
-        query += ` ORDER BY a.Fecha DESC, e.Nombre, e.Apellidos`;
-
-        const request = pool.request()
-            .input('fechaInicio', sql.Date, fechaInicio)
-            .input('fechaFin', sql.Date, fechaFin);
-
-        if (empresaId) {
-            request.input('empresaId', sql.Int, empresaId);
-        }
-
-        const result = await request.query(query);
-
-        // Calcular resumen
-        const resumen = {
-            totalRegistros: result.recordset.length,
-            totalPresentes: result.recordset.filter(r => r.Estado === 'Presente').length,
-            totalAusentes: result.recordset.filter(r => r.Estado === 'Ausente').length,
-            totalTardanzas: result.recordset.filter(r => r.Estado === 'Tardanza').length
-        };
-
-        res.json({
-            success: true,
-            reporte: result.recordset,
-            resumen: resumen
-        });
-
-    } catch (error) {
-        console.error('Error generando reporte:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error generando reporte'
-        });
+    if (empresaId) {
+      query += ` AND e.EmpresaID = @empresaId`;
     }
+
+    query += ` ORDER BY a.Fecha DESC, e.Nombre, e.Apellidos`;
+
+    const request = pool
+      .request()
+      .input("fechaInicio", sql.Date, fechaInicio)
+      .input("fechaFin", sql.Date, fechaFin);
+
+    if (empresaId) {
+      request.input("empresaId", sql.Int, empresaId);
+    }
+
+    const result = await request.query(query);
+
+    // Calcular resumen
+    const resumen = {
+      totalRegistros: result.recordset.length,
+      totalPresentes: result.recordset.filter((r) => r.Estado === "Presente")
+        .length,
+      totalAusentes: result.recordset.filter((r) => r.Estado === "Ausente")
+        .length,
+      totalTardanzas: result.recordset.filter((r) => r.Estado === "Tardanza")
+        .length,
+    };
+
+    res.json({
+      success: true,
+      reporte: result.recordset,
+      resumen: resumen,
+    });
+  } catch (error) {
+    console.error("Error generando reporte:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error generando reporte",
+    });
+  }
 });
 
 // Reporte de horas trabajadas por empleado
-router.get('/horas-trabajadas', async (req, res) => {
-    let pool;
-    try {
-        const { mes, año, empresaId } = req.query;
+router.get("/horas-trabajadas", async (req, res) => {
+  let pool;
+  try {
+    const { mes, año, empresaId } = req.query;
 
-        pool = await getConnection();
+    pool = await getConnection();
 
-        let query = `
+    let query = `
             SELECT 
                 e.EmpleadoID,
                 e.Nombre,
@@ -94,63 +109,68 @@ router.get('/horas-trabajadas', async (req, res) => {
             WHERE e.Activo = 1
         `;
 
-        if (empresaId) {
-            query += ` AND e.EmpresaID = @empresaId`;
-        }
+    if (empresaId) {
+      query += ` AND e.EmpresaID = @empresaId`;
+    }
 
-        query += ` GROUP BY e.EmpleadoID, e.Nombre, e.Apellidos, e.Cargo, em.Nombre
+    query += ` GROUP BY e.EmpleadoID, e.Nombre, e.Apellidos, e.Cargo, em.Nombre
                    ORDER BY em.Nombre, e.Nombre, e.Apellidos`;
 
-        const request = pool.request()
-            .input('mes', sql.Int, mes)
-            .input('año', sql.Int, año);
+    const request = pool
+      .request()
+      .input("mes", sql.Int, mes)
+      .input("año", sql.Int, año);
 
-        if (empresaId) {
-            request.input('empresaId', sql.Int, empresaId);
-        }
-
-        const result = await request.query(query);
-
-        res.json({
-            success: true,
-            reporte: result.recordset
-        });
-
-    } catch (error) {
-        console.error('Error generando reporte de horas:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error generando reporte'
-        });
+    if (empresaId) {
+      request.input("empresaId", sql.Int, empresaId);
     }
+
+    const result = await request.query(query);
+
+    res.json({
+      success: true,
+      reporte: result.recordset,
+    });
+  } catch (error) {
+    console.error("Error generando reporte de horas:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error generando reporte",
+    });
+  }
 });
 
-// Estadísticas generales
-router.get('/estadisticas', async (req, res) => {
-    let pool;
-    try {
-        const { fecha } = req.query;
-        const fechaConsulta = fecha || new Date().toISOString().split('T')[0];
+// ✅ AGREGAR ESTA FUNCIÓN PARA CORREGIR FECHAS DE CONSULTA
+function corregirFechaConsulta(fechaFrontend) {
+  const fecha = new Date(fechaFrontend + "T00:00:00-05:00");
+  return fecha.toISOString().split("T")[0];
+}
 
-        pool = await getConnection();
+// Estadísticas generales - CORREGIDO
+router.get("/estadisticas", async (req, res) => {
+  let pool;
+  try {
+    const { fecha } = req.query;
+    const fechaConsulta = fecha || new Date().toISOString().split("T")[0];
 
-        // Total empleados por empresa
-        const empleadosPorEmpresa = await pool.request()
-            .query(`
+    pool = await getConnection();
+
+    // ✅ CORREGIDO: Total empleados por empresa (SOLO ACTIVOS)
+    const empleadosPorEmpresa = await pool.request().query(`
                 SELECT 
                     em.Nombre as Empresa,
                     COUNT(e.EmpleadoID) as TotalEmpleados,
-                    SUM(CASE WHEN e.Activo = 1 THEN 1 ELSE 0 END) as EmpleadosActivos
+                    COUNT(e.EmpleadoID) as EmpleadosActivos
                 FROM Empresas em
-                LEFT JOIN Empleados e ON em.EmpresaID = e.EmpresaID
+                LEFT JOIN Empleados e ON em.EmpresaID = e.EmpresaID AND e.Activo = 1
                 GROUP BY em.EmpresaID, em.Nombre
                 ORDER BY em.Nombre
             `);
 
-        // Asistencias del día
-        const asistenciasHoy = await pool.request()
-            .input('fecha', sql.Date, fechaConsulta)
-            .query(`
+    // Asistencias del día
+    const asistenciasHoy = await pool
+      .request()
+      .input("fecha", sql.Date, fechaConsulta).query(`
                 SELECT 
                     em.Nombre as Empresa,
                     COUNT(a.AsistenciaID) as TotalAsistencias,
@@ -163,22 +183,21 @@ router.get('/estadisticas', async (req, res) => {
                 ORDER BY em.Nombre
             `);
 
-        res.json({
-            success: true,
-            estadisticas: {
-                empleadosPorEmpresa: empleadosPorEmpresa.recordset,
-                asistenciasHoy: asistenciasHoy.recordset,
-                fechaConsulta: fechaConsulta
-            }
-        });
-
-    } catch (error) {
-        console.error('Error obteniendo estadísticas:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error obteniendo estadísticas'
-        });
-    }
+    res.json({
+      success: true,
+      estadisticas: {
+        empleadosPorEmpresa: empleadosPorEmpresa.recordset,
+        asistenciasHoy: asistenciasHoy.recordset,
+        fechaConsulta: fechaConsulta,
+      },
+    });
+  } catch (error) {
+    console.error("Error obteniendo estadísticas:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error obteniendo estadísticas",
+    });
+  }
 });
 
 module.exports = router;
