@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Sistema de Asistencia</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4854/4854344.png">
+    <link rel="stylesheet" href="../css/admin-panel.css">
+</head>
+
+<body>
+    <div class="admin-panel">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-info">
+                <div class="admin-logo">
+                    <img src="../images/logo-sistema.png" alt="Admin">
+                </div>
+                <div class="admin-details">
+                    <h1>Panel Administrativo</h1>
+                    <p id="adminWelcome">Bienvenido, Administrador</p>
+                    <p class="fecha-hora" id="fechaHoraAdmin"></p>
+                </div>
+            </div>
+            <div class="admin-actions">
+                <button class="btn-refresh" onclick="cargarDashboard()">🔄 Actualizar</button>
+                <button class="btn-logout" onclick="cerrarSesionAdmin()">🚪 Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="admin-nav">
+            <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="nav-btn" data-tab="asistencias">📅 Asistencias</button>
+            <button class="nav-btn" data-tab="empleados">👨‍💼 Empleados</button>
+            <button class="nav-btn" data-tab="empresas">🏢 Empresas</button>
+            <button class="nav-btn" data-tab="reportes">📈 Reportes</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <h3>Total Empleados</h3>
+                            <span class="stat-number" id="totalEmpleados">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <h3>Asistencias Hoy</h3>
+                            <span class="stat-number" id="asistenciasHoy">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏢</div>
+                        <div class="stat-info">
+                            <h3>Empresas</h3>
+                            <span class="stat-number" id="totalEmpresas">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-info">
+                            <h3>Tardanzas Hoy</h3>
+                            <span class="stat-number" id="tardanzasHoy">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="chart-section">
+                        <h3>Asistencias por Empresa - Hoy</h3>
+                        <div class="chart-container">
+                            <canvas id="asistenciasChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="recent-section">
+                        <h3>Últimas Asistencias</h3>
+                        <div class="recent-list" id="recentAsistencias">
+                            <!-- Últimas asistencias se cargarán aquí -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asistencias Tab -->
+            <div id="asistencias" class="tab-content">
+                <div class="tab-header">
+                    <h2>Registros de Asistencia</h2>
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="fechaFiltro">Fecha:</label>
+                            <input type="date" id="fechaFiltro">
+                        </div>
+                        <div class="filter-group">
+                            <label for="empresaFiltro">Empresa:</label>
+                            <select id="empresaFiltro">
+                                <option value="">Todas las empresas</option>
+                            </select>
+                        </div>
+                        <button class="btn-filter" onclick="filtrarAsistencias()">🔍 Filtrar</button>
+                        <button class="btn-export" onclick="adminPanel.exportarPDF()">📄 Exportar PDF</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Empresa</th>
+                                <th>Fecha</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
+                                <th>Estado</th>
+                                <th>Ubicación</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaAsistencias">
+                            <!-- Datos de asistencias se cargarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Empleados Tab -->
+            <div id="empleados" class="tab-content">
+                <div class="tab-header">
+                    <h2>Gestión de Empleados</h2>
+                    <div class="actions">
+                        <button class="btn-primary" onclick="abrirModalEmpleado()">➕ Nuevo Empleado</button>
+                        <button class="btn-secondary" onclick="cargarEmpleados()">🔄 Actualizar</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>DNI</th>
+                                <th>Empresa</th>
+                                <th>Cargo</th>
+                                <th>Usuario</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaEmpleados">
+                            <!-- Datos de empleados se cargarán aquí -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Empresas Tab -->
+            <div id="empresas" class="tab-content">
+                <div class="tab-header">
+                    <h2>Gestión de Empresas</h2>
+                    <button class="btn-primary" onclick="abrirModalEmpresa()">➕ Nueva Empresa</button>
+                </div>
+                <div class="empresas-grid" id="empresasGrid">
+                    <!-- Tarjetas de empresas se cargarán aquí -->
+                </div>
+            </div>
+
+            <!-- Reportes Tab -->
+            <div id="reportes" class="tab-content">
+                <div class="tab-header">
+                    <h2>Reportes y Estadísticas</h2>
+                    <div class="report-filters">
+                        <div class="filter-group">
+                            <label for="fechaInicioReporte">Fecha Inicio:</label>
+                            <input type="date" id="fechaInicioReporte">
+                        </div>
+                        <div class="filter-group">
+                            <label for="fechaFinReporte">Fecha Fin:</label>
+                            <input type="date" id="fechaFinReporte">
+                        </div>
+                        <div class="filter-group">
+                            <label for="empresaReporte">Empresa:</label>
+                            <select id="empresaReporte">
+                                <option value="">Todas las empresas</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="generarReporte()">📊 Generar Reporte</button>
+                        <button class="btn-export" onclick="adminPanel.exportarPDFReportes()">📄 Exportar PDF</button>
+                    </div>
+                </div>
+                <div class="report-content" id="reporteContent">
+                    <div class="report-stats" id="reporteStats">
+                        <!-- Estadísticas del reporte -->
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Empresa</th>
+                                    <th>Fecha</th>
+                                    <th>Horas Trabajadas</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaReporte">
+                                <!-- Datos del reporte -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Empleados -->
+    <div id="empleadoModal" class="modal hidden">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="modalEmpleadoTitulo">Nuevo Empleado</h3>
+                <button class="close-modal" onclick="cerrarModalEmpleado()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="formEmpleado" class="modal-form" enctype="multipart/form-data">
+                    <input type="hidden" id="empleadoId">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="empleadoNombre">Nombre *</label>
+                            <input type="text" id="empleadoNombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empleadoApellidos">Apellidos *</label>
+                            <input type="text" id="empleadoApellidos" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="empleadoDNI">DNI *</label>
+                            <input type="text" id="empleadoDNI" maxlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empleadoTelefono">Teléfono</label>
+                            <input type="tel" id="empleadoTelefono">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="empleadoDireccion">Dirección</label>
+                        <input type="text" id="empleadoDireccion">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="empleadoCargo">Cargo *</label>
+                            <input type="text" id="empleadoCargo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empleadoEmpresa">Empresa *</label>
+                            <select id="empleadoEmpresa" required>
+                                <option value="">Seleccionar empresa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Foto de Perfil -->
+                    <div class="form-group">
+                        <label for="empleadoFoto">Foto de Perfil</label>
+                        <div class="file-upload-container">
+                            <div class="photo-preview" id="photoPreview">
+                                <img id="previewImage" src="" alt="Vista previa">
+                                <span id="noPhotoText">📷 Sin foto</span>
+                                <button type="button" id="removePhotoBtn" class="remove-photo hidden"
+                                    onclick="removePhoto()">❌</button>
+                            </div>
+                            <input type="file" id="empleadoFoto" accept="image/*" onchange="previewPhoto(this)"
+                                style="display: none;">
+                            <label for="empleadoFoto" class="file-upload-btn">
+                                📸 Seleccionar Foto
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ✅ AGREGAR ESTO ANTES de Horarios Semanales -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fechaInicioTurno">Fecha Inicio Turno *</label>
+                            <input type="date" id="fechaInicioTurno" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaFinTurno">Fecha Fin Turno (Opcional)</label>
+                            <input type="date" id="fechaFinTurno">
+                            <small style="color: #666;">Dejar vacío para turno permanente</small>
+                        </div>
+                    </div>
+
+                    <!-- Horarios Semanales -->
+                    <div class="form-group">
+                        <label>Horarios Semanales *</label>
+                        <div class="horarios-container" id="horariosContainer">
+                            <!-- Los horarios se generarán dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="empleadoUsuario">Usuario *</label>
+                            <input type="text" id="empleadoUsuario" required>
+                        </div>
+                        <div class="form-group password-group">
+                            <label for="empleadoContraseña">Contraseña *</label>
+                            <div class="password-input-container">
+                                <input type="password" id="empleadoContraseña" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="cerrarModalEmpleado()">Cancelar</button>
+                        <button type="submit" class="btn-primary">Guardar Empleado</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Empresas -->
+    <div id="empresaModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalEmpresaTitulo">Nueva Empresa</h3>
+                <button class="close-modal" onclick="cerrarModalEmpresa()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="formEmpresa" class="modal-form" enctype="multipart/form-data">
+                    <input type="hidden" id="empresaId">
+
+                    <div class="form-group">
+                        <label for="empresaNombre">Nombre *</label>
+                        <input type="text" id="empresaNombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="empresaDescripcion">Descripción</label>
+                        <textarea id="empresaDescripcion" rows="3"></textarea>
+                    </div>
+
+                    <!-- ✅ AGREGAR PREVIEW DEL LOGO -->
+                    <div class="form-group">
+                        <label for="empresaLogo">Logo de la Empresa</label>
+
+                        <!-- Preview del logo actual -->
+                        <div class="logo-preview" id="logoPreview">
+                            <img id="previewLogoImage" src="" alt="Logo actual"
+                                style="max-width: 100px; display: none;">
+                            <span id="noLogoText">🖼️ Sin logo</span>
+                        </div>
+
+                        <input type="file" id="empresaLogo" name="logo" accept="image/*"
+                            onchange="previewEmpresaLogo(this)">
+                        <small style="color: #666; font-size: 12px;">Formatos: JPG, PNG, GIF (máximo 5MB)</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="cerrarModalEmpresa()">Cancelar</button>
+                        <button type="submit" class="btn-primary">Guardar Empresa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Procesando...</p>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminar -->
+    <div id="confirmModal" class="confirm-modal hidden">
+        <div class="confirm-content">
+            <h3>¿Estás seguro?</h3>
+            <p>¿Estás seguro de que quieres eliminar este empleado?</p>
+            <p class="warning-text">⚠️ Esta acción no se puede deshacer</p>
+            <div class="confirm-actions">
+                <button class="btn-cancel" onclick="adminPanel.cerrarConfirmModal()">Cancelar</button>
+                <button class="btn-confirm" id="confirmDeleteBtn">Sí, Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="../js/admin-panel.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Empleado - Sistema de Asistencia</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4854/4854344.png">
+    <link rel="stylesheet" href="../css/empleado-login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <img src="../images/logo-sistema.png" alt="Sistema Asistencia" id="empresaLogo">
+            </div>
+            <h1 id="empresaNombre">Acceso Empleados</h1>
+            <p>Ingresa tus credenciales para registrar tu asistencia</p>
+        </div>
+
+        <!-- ✅ AGREGAR EL FORMULARIO QUE FALTA -->
+        <div class="login-form">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contraseña">Contraseña:</label>
+                    <input type="password" id="contraseña" name="contraseña" required>
+                </div>
+
+                <button type="submit" class="btn-login" id="btnLogin">
+                    <span>Ingresar</span>
+                    <div class="loading hidden" id="loading">Cargando...</div>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <button class="btn-back" onclick="volverInicio()">
+                    ← Volver al Inicio
+                </button>
+            </div>
+        </div>
+
+        <div class="messages">
+            <div id="errorMessage" class="message error hidden"></div>
+            <div id="successMessage" class="message success hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        // CARGAR LOGO DE LA EMPRESA SELECCIONADA
+        document.addEventListener('DOMContentLoaded', function() {
+            const empresaSeleccionada = JSON.parse(localStorage.getItem('empresaSeleccionada'));
+            
+            if (empresaSeleccionada) {
+                // Cambiar el título
+                document.getElementById('empresaNombre').textContent = `Acceso - ${empresaSeleccionada.nombre}`;
+                
+                // Cargar logo de la empresa
+                cargarLogoEmpresa(empresaSeleccionada.id);
+            }
+        });
+
+        async function cargarLogoEmpresa(empresaId) {
+            try {
+                const response = await fetch(`http://localhost:3000/api/empresas/${empresaId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        const logoPath = data.empresa.LogoPath || 'images/logo-sistema.png';
+                        document.getElementById('empresaLogo').src = `../${logoPath}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error cargando logo:', error);
+            }
+        }
+
+        function volverInicio() {
+            window.location.href = '../index.html';
+        }
+    </script>
+    
+    <script src="../js/empleado-login.js"></script>
+</body>
+</html>

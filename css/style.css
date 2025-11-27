@@ -1,0 +1,253 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+body {
+    background: linear-gradient(270deg, #ff9a9e, #a1c4fd, #c2e9fb, #d4fc79);
+    background-size: 800% 800%;
+    animation: gradientMove 15s ease infinite;
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+/* Animación del fondo */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.empresas-section {
+    padding: 40px;
+    background: #f8f9fa;
+}
+
+.empresas-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-size: 1.8em;
+}
+
+.empresas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.empresa-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid transparent;
+}
+
+.empresa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.empresa-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+/* ✅ AGREGAR ESTO - Estilos generales para todas las empresas */
+.empresa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    border-color: #3498db !important; /* Borde azul al hover */
+}
+
+.empresa-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 4px solid #3498db; /* Borde azul para todos */
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.empresa-logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.empresa-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid #e9ecef; /* Borde gris claro por defecto */
+}
+
+.empresa-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.empresa-card p {
+    color: #7f8c8d;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.empresa-logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.empresa-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.empresa-card p {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+.admin-section {
+    padding: 30px;
+    text-align: center;
+    border-top: 2px solid #e9ecef;
+}
+
+.admin-btn {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+}
+
+.admin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+}
+
+.footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+}
+
+/* Estilos para el loading y errores */
+.loading, .no-empresas, .error-empresas {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-size: 18px;
+    grid-column: 1 / -1;
+}
+
+.error-empresas button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.error-empresas button:hover {
+    background: #c0392b;
+}
+
+/* Asegurar que las imágenes se muestren bien */
+.empresa-logo img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .empresas-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .container {
+        margin: 10px;
+    }
+}
