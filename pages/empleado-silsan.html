@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Empleados - Silsan</title>
+    <link rel="stylesheet" href="../css/empleado-silsan.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <div class="logo-container">
+                <img src="../images/logo-silsan.png" alt="Droguería Silsan" class="company-logo">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h1 class="form-title">Control de asistencia</h1>
+            
+            <p class="identify-text">Identifíquese:</p>
+            
+            <form id="empleadoForm">
+                <div class="input-group">
+                    <label for="numeroId" class="input-label">Número ID:</label>
+                    <input 
+                        type="text" 
+                        id="numeroId" 
+                        class="form-input" 
+                        placeholder="Ingrese su número ID"
+                        required
+                    >
+                </div>
+                
+                <div class="input-group">
+                    <label for="password" class="input-label">Contraseña:</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Ingrese su contraseña"
+                        required
+                    >
+                </div>
+                
+                <div class="buttons-container">
+                    <button type="button" class="btn btn-back" onclick="regresarInicio()">
+                        Regresar
+                    </button>
+                    <button type="submit" class="btn btn-login" id="loginBtn">
+                        Ingresar
+                    </button>
+                </div>
+            </form>
+            
+            <div class="register-section">
+                <p class="register-text">¿no estás registrado?</p>
+                <button class="register-btn" onclick="contactarAdmin()">
+                    Contacte a Administración
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/empleado-silsan.js"></script>
+</body>
+</html>
